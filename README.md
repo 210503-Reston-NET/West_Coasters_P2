@@ -45,7 +45,7 @@ The *Hike Planner App* is a web application that helps hikers and outdoor enthus
 - Users can sign up/sign in.
 - Users can view and search the Map for trails and trailheads.
 - Users can create activities and trips.
-- Users Owners can invite people.
+- Trip creators can invite people to join the trip.
 - Users can create/view checklists.
 - Users can create equipments and share to public.
 
