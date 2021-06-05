@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using BL;
+using DL;
 
 namespace WebAPI
 {
@@ -32,6 +35,9 @@ namespace WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
             });
+            services.AddDbContext<AppDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HikePlannerDB")));
+            services.AddScoped<IRepository, RepoDB>();
+            services.AddScoped<IEquipmentBL, EquipmentBL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
