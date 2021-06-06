@@ -62,7 +62,7 @@ steps:
     command: 'publish'
     publishWebProjects: false
     zipAfterPublish: true
-    projects: '**/StoreWebUI/*.csproj'
+    projects: '**/WebAPI/*.csproj'
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
