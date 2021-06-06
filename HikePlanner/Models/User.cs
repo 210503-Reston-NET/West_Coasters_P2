@@ -10,7 +10,7 @@ namespace Models
             UserId = user.UserId;
             Name = user.Name;
             Email = user.Email;
-            Password = Password;
+            Password = user.Password;
         }
 
         //ToDo - confirm id field name : UUId vs UserId

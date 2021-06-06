@@ -1,15 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Models;
 using DL;
 using System.Linq;
 
+
 namespace BL
 {
     public class EquipmentBL : IEquipmentBL
     {
-        private IRepository _repo;
-        public EquipmentBL(IRepository repo)
+        private readonly IEquipmentRepo _repo;
+        public EquipmentBL(IEquipmentRepo repo)
         {
             _repo = repo;
         }
