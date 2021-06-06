@@ -52,6 +52,7 @@ The *Hike Planner App* is a web application that helps hikers and outdoor enthus
 - Users can create equipments and share to public.
 
 ## Stretch Goals
+- Trip participants can download trip details in PDF.
 - Trip recommendations (make trips public or private and recommend it to nearby users).
 - Recreation.gov API integration and adding Points of interest to Trips.
 - Weather Forecast/Historical Data.
