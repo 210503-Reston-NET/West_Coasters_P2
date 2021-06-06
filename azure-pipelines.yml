@@ -14,14 +14,14 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-# - task: SonarCloudPrepare@1
-#   inputs:
-#     SonarCloud: 'Sonarcloud'
-#     organization: '210503-reston-net'
-#     scannerMode: 'MSBuild'
-#     projectKey: '210503-Reston-NET_West_Coasters_P2'
-#     projectName: 'West_Coasters_P2'
-#     extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml'
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Sonar Cloud'
+    organization: '210503-reston-net'
+    scannerMode: 'MSBuild'
+    projectKey: '210503-Reston-NET_West_Coasters_P2'
+    projectName: 'West_Coasters_P2'
+    extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml'
 
 #restore, build, and test
 - task: DotNetCoreCLI@2
@@ -43,18 +43,18 @@ steps:
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true "/p:CoverletOutputFormat=\"opencover,Cobertura\"" /p:Exclude=\"[Data.Migrations.*]*\"'
     publishTestResults: true
 
-# - task: PublishCodeCoverageResults@1
-#   displayName: Publish Code Coverage Report
-#   inputs:
-#     codeCoverageTool: 'Cobertura'
-#     summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
-#     reportDirectory: '$(Build.SourcesDirectory)/StoreTests/' 
+- task: PublishCodeCoverageResults@1
+  displayName: Publish Code Coverage Report
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+    reportDirectory: '$(Build.SourcesDirectory)/StoreTests/' 
 
-# - task: SonarCloudAnalyze@1
-#   displayName: Run Code Analysis
+- task: SonarCloudAnalyze@1
+  displayName: Run Code Analysis
 
-# - task: SonarCloudPublish@1
-#   displayName: Publish Code Analysis
+- task: SonarCloudPublish@1
+  displayName: Publish Code Analysis
 
 - task: DotNetCoreCLI@2
   displayName: Publish
@@ -63,11 +63,10 @@ steps:
     publishWebProjects: false
     zipAfterPublish: true
     projects: '**/StoreWebUI/*.csproj'
-
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: 'Azure subscription1'
+    azureSubscription: 'Azure subscription 1(7db5a42a-1fa9-40a3-8da3-4ed5fb8c49cb)'
     appType: 'webApp'
     WebAppName: 'hpbackend'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
