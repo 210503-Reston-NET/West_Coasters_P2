@@ -1,3 +1,5 @@
+using System;
+
 namespace Models
 {
     public class User
@@ -14,7 +16,7 @@ namespace Models
         }
 
         //ToDo - confirm id field name : UUId vs UserId
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
