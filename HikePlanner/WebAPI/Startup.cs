@@ -36,7 +36,7 @@ namespace WebAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
             });
             services.AddDbContext<AppDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HikePlannerDB")));
-            services.AddScoped<IRepository, RepoDB>();
+            services.AddScoped<IEquipmentRepo, EquipmentRepo>();
             services.AddScoped<IEquipmentBL, EquipmentBL>();
         }
 
