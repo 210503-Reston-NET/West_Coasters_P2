@@ -86,6 +86,8 @@ namespace DL
         {
             return _context.Checklists
                 .AsNoTracking()
+                .Include("ChecklistItems")
+                .Include("Equipments")
                 .ToList();
         }
         /// <summary>
@@ -97,6 +99,8 @@ namespace DL
         {
             return _context.Checklists
                 .AsNoTracking()
+                .Include("ChecklistItems")
+                .Include("Equipments")
                 .FirstOrDefault(list => list.Id == id);
         }
         /// <summary>
@@ -108,6 +112,7 @@ namespace DL
         {
             return _context.ChecklistItems
                 .AsNoTracking()
+                .Include("Equipments")
                 .FirstOrDefault(item => item.Id == itemId);
         }
         /// <summary>
@@ -120,6 +125,7 @@ namespace DL
             return _context.ChecklistItems
                 .AsNoTracking()
                 .Where(item => item.ChecklistId == checklistId)
+                .Include("Equipments")
                 .ToList();
         }
 
