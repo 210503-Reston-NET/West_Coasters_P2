@@ -38,6 +38,8 @@ namespace WebAPI
             services.AddDbContext<AppDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HikePlannerDB")));
             services.AddScoped<IEquipmentRepo, EquipmentRepo>();
             services.AddScoped<IEquipmentBL, EquipmentBL>();
+            services.AddScoped<IAddressRepo, AddressRepo>();
+            services.AddScoped<IAddressBL, AddressBL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

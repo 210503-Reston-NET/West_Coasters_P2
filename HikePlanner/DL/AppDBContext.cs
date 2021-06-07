@@ -17,6 +17,7 @@ namespace DL
         public DbSet<User> Users { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<Address> Address { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,6 +28,9 @@ namespace DL
 
             modelBuilder.Entity<Equipment>()
             .Property(equipment => equipment.Id)
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Address>()
+            .Property(address => address.Id)
             .ValueGeneratedOnAdd();
         }
     }
