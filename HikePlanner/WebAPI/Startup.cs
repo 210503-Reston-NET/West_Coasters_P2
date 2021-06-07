@@ -32,6 +32,8 @@ namespace WebAPI
             services.AddScoped<IEquipmentBL, EquipmentBL>();
             services.AddScoped<IUsersBL, UsersBL>();
             services.AddScoped<IUsersRepo, UsersRepo>();
+            services.AddScoped<IChecklistBL, ChecklistBL>();
+            services.AddScoped<IChecklistRepo, ChecklistRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
