@@ -44,5 +44,19 @@ namespace HikePlannerTests
             //Act & Assert
             Assert.Throws<Exception>(() => test.Name = "");
         }
+
+        [Fact]
+        public void EmailShouldSetValidData()
+        {
+            //Arrange
+            string email = "Mike@gmail.com";
+            User test = new User();
+
+            //Act
+            test.Email = email;
+
+            //Assert
+            Assert.Equal(email, test.Email);
+        }
     }
 }
