@@ -32,14 +32,17 @@ namespace WebAPI.Controllers
         }
         /// <summary>
         /// GET api/<ChecklistController>/5
-        /// Gets a checklist by its id
+        /// first, get the checklist by its id
+        /// and then grab all its items and fill it in
         /// </summary>
         /// <param name="id">checklist id</param>
         /// <returns>found checklist</returns>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-           return Ok(_checklistBL.GetChecklistById(id));
+            Checklist checklist = _checklistBL.GetChecklistById(id);
+            checklist.ChecklistItems = _checklistBL.GetChecklistItemsByChecklistId(checklist.Id);
+            return Ok(checklist);
         }
 
         /// <summary>
@@ -75,6 +78,57 @@ namespace WebAPI.Controllers
         public IActionResult Delete(int id)
         {
             return Ok(_checklistBL.DeleteChecklist(id));
+        }
+
+        /// <summary>
+        /// GET api/<ChecklistController>/5/item/5
+        /// Gets one checklist item by id that belong in a checklist
+        /// </summary>
+        /// <param name="listId">checklist id</param>
+        /// <param name="itemId">checklist item id</param>
+        /// <returns>found checklist</returns>
+        [HttpGet("{listId}/item/{itemId}")]
+        public IActionResult Get(int listId, int itemId)
+        {
+            return Ok(_checklistBL.GetChecklistItemById(itemId));
+        }
+
+        /// <summary>
+        /// POST api/<ChecklistController>/item
+        /// Creates new checklist item
+        /// </summary>
+        /// <param name="listId">checklist item obj to be created</param>
+        /// <param name="checklistItem"/>checklist item to be created</param>
+        [HttpPost("{listId}/item")]
+        public IActionResult Post(int listId, [FromBody] ChecklistItem checklistItem)
+        {
+            return Created("api/Checklist", _checklistBL.CreateNewChecklistItem(checklistItem));
+        }
+
+        /// <summary>
+        /// Updates existing checklist item
+        /// PUT api/<ChecklistController>/5/item/5
+        /// </summary>
+        /// <param name="listId">checklsit Id</param>
+        /// <param name="itemId"/>checklist item id</param>
+        /// <param name="checklistItem">checklist item to be updated</param>
+        [HttpPut("{listId}/item/{itemId}")]
+        public IActionResult Put(int listId, int itemId, [FromBody] ChecklistItem checklistItem)
+        {
+            return Ok(_checklistBL.UpdateChecklistItem(checklistItem));
+        }
+
+        /// <summary>
+        /// DELETE api/<ChecklistController>/5/item/5
+        /// Deletes the checklist with the passed Id
+        /// </summary>
+        /// <param name="listId">checklist Id</param>
+        /// <param name="itemId">checklist item id</param>
+        /// <returns>Bool, true when successful</returns>
+        [HttpDelete("{listId}/item/{itemId}")]
+        public IActionResult Delete(int listId, int itemId)
+        {
+            return Ok(_checklistBL.DeleteChecklistItem(itemId));
         }
     }
 }
