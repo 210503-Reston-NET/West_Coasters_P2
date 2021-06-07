@@ -25,12 +25,26 @@ namespace WebAPI.Controllers
         {
             return Ok(_iAddressBL.GetAddressById(id));
         }
+        /// <summary>
+        /// this Method is adding address of a user against userId
+        /// </summary>
+        /// <param name="id"></param> this is the userid to which we are going to insert the address id
+        /// <param name="adressToAdd"></param> this is the address with street, city, state and zipcode params
+        /// <returns></returns> returns the created address
         // POST api/<AddressController>
         [HttpPost]
         public IActionResult AddAddress(string id, [FromBody] Address adressToAdd)
         {
             return Created("api/Address", _iAddressBL.AddAddress(id, adressToAdd));
         }
+
+        /// <summary>
+        /// This method is created to update the address against address id which we can get from user
+        /// table
+        /// </summary>
+        /// <param name="id"></param> Id of address table
+        /// <param name="addressToUpdate"></param> form data to update address
+        /// <returns></returns>
 
         // PUT api/<AddressController>/5
         [HttpPut("{id}")]
@@ -40,6 +54,12 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// This method is deleting address from address table by using address id which we can get 
+        /// from users table by AddressId
+        /// </summary>
+        /// <param name="id"></param> Id of address table
+        /// <returns></returns>
         // DELETE api/<AddressController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
