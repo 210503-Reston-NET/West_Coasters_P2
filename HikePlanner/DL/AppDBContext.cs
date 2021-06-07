@@ -18,6 +18,10 @@ namespace DL
 
         public DbSet<Equipment> Equipments { get; set; }
 
+        public DbSet<Checklist> Checklists { get; set; }
+
+        public DbSet<ChecklistItem> ChecklistItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -26,6 +30,14 @@ namespace DL
 
             modelBuilder.Entity<Equipment>()
             .Property(equipment => equipment.Id)
+            .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Equipment>()
+            .Property(checklist => checklist.Id)
+            .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Equipment>()
+            .Property(checklistItem => checklistItem.Id)
             .ValueGeneratedOnAdd();
         }
     }
