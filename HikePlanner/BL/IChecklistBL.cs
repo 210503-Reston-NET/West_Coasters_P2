@@ -7,7 +7,7 @@ using Models;
 
 namespace BL
 {
-    interface IChecklistBL
+    public interface IChecklistBL
     {
         public List<Checklist> GetAllChecklists();
         public Checklist GetChecklistById(int id);
