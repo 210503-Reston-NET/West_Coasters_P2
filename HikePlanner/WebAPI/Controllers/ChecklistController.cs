@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
 
         /// <summary>
         /// POST api/<ChecklistController>
-        /// Create new checklist
+        /// Creates new checklist
         /// </summary>
         /// <param name="value">checklist obj to be created</param>
         [HttpPost]
@@ -53,16 +53,23 @@ namespace WebAPI.Controllers
             return Created("api/Checklist", _checklistBL.CreateNewChecklist(checklist));
         }
 
-        // PUT api/<ChecklistController>/5
+        /// <summary>
+        /// Updates existing checklist
+        /// PUT api/<ChecklistController>/5
+        /// </summary>
+        /// <param name="id">checklsit Id</param>
+        /// <param name="value">checklist to be updated</param>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Checklist checklist)
         {
+            return Ok(_checklistBL.UpdateChecklist(checklist));
         }
 
         // DELETE api/<ChecklistController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            return Ok(_checklistBL.DeleteChecklist(id));
         }
     }
 }
