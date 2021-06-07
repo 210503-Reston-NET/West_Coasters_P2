@@ -65,7 +65,12 @@ namespace WebAPI.Controllers
             return Ok(_checklistBL.UpdateChecklist(checklist));
         }
 
-        // DELETE api/<ChecklistController>/5
+        /// <summary>
+        /// DELETE api/<ChecklistController>/5
+        /// Deletes the checklist with the passed Id
+        /// </summary>
+        /// <param name="id">checklist Id</param>
+        /// <returns>Bool, true when successful</returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
