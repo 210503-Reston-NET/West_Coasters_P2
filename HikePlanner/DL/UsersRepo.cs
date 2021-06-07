@@ -19,7 +19,7 @@ namespace DL
         {
             List<User> users = _context.Users
                 .AsNoTracking()
-                .Select(user=> user)
+                .Select(user => user)
                 .ToList();
             return users;
         }
@@ -39,7 +39,7 @@ namespace DL
         }
         public User DeleteUser(User user)
         {
-            User userToBeDeleted = _context.Users.FirstOrDefault(user=> user.UserId == user.UserId);
+            User userToBeDeleted = _context.Users.FirstOrDefault(us=> us.UserId == user.UserId);
             _context.Remove(userToBeDeleted);
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
