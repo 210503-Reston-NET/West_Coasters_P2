@@ -15,14 +15,22 @@ namespace DL
         {
             _context = context;
         }
+        /// <summary>
+        /// get all users method
+        /// </summary>
+        /// <returns></returns>
         public List<User> GetAllUsers()
         {
             List<User> users = _context.Users
                 .AsNoTracking()
-                .Select(user => user)
                 .ToList();
             return users;
         }
+        /// <summary>
+        /// Add user method with the auto generated Guid unique string
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public User AddUser(User user)
         {
            User AddedUser =  _context.Users.Add(user).Entity;
