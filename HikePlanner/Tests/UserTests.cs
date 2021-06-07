@@ -1,10 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Models;
+﻿using Models;
 using System;
 using Xunit;
-using Assert = Xunit.Assert;
 
-namespace HikePlannerTests
+namespace Tests
 {
     public class UserTests
     {
