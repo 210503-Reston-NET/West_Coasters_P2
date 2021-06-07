@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BL;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Serilog;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,6 +29,7 @@ namespace WebAPI.Controllers
         [HttpGet()]
         public IActionResult Get()
         {
+            Log.Information("GET api/Checklist");
             return Ok(_checklistBL.GetAllChecklists());
         }
         /// <summary>
@@ -40,6 +42,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
+            Log.Information("GET api/Checklist/{id}", id);
             return Ok(_checklistBL.GetChecklistById(id));
         }
 
@@ -51,6 +54,8 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Checklist checklist)
         {
+            Log.Information("Reached Controller POST api/Checklist");
+            Log.Information("Received following item: {Checklist}", checklist);
             return Created("api/Checklist", _checklistBL.CreateNewChecklist(checklist));
         }
 
@@ -63,6 +68,8 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Checklist checklist)
         {
+            Log.Information("Reached Controller PUT api/Checklist/{id}", id);
+            Log.Information("Received following item: {Checklist}", checklist);
             return Ok(_checklistBL.UpdateChecklist(checklist));
         }
 
@@ -75,6 +82,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            Log.Information("Reached Controller DELETE api/Checklist/{id}", id);
             return Ok(_checklistBL.DeleteChecklist(id));
         }
 
