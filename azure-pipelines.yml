@@ -55,6 +55,8 @@ steps:
 
 - task: SonarCloudPublish@1
   displayName: Publish Code Analysis
+  
+
 - task: DotNetCoreCLI@2
   displayName: Publish
   inputs:
@@ -67,5 +69,5 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure subscription 1(7db5a42a-1fa9-40a3-8da3-4ed5fb8c49cb)'
     appType: 'webApp'
-    WebAppName: 'hpbackend'
+    WebAppName: 'hikeplannerapi'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
