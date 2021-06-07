@@ -5,8 +5,12 @@ namespace DL
 {
     public interface IEquipmentRepo
     {
-        public List<Equipment> GetAllEquipments();
+        List<Equipment> GetAllEquipments();
 
-        public Equipment AddEquipment(Equipment equipment);
+        Equipment AddEquipment(Equipment equipment);
+
+        void DeleteEquipment(Equipment equipment);
+        Equipment UpdateEquipment(Equipment equipment);
+        Equipment GetEquipmentById(int id);
     }
 }
