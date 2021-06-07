@@ -5,10 +5,10 @@ namespace DL
 {
     public class AppDBContext : DbContext
     {
+        public AppDBContext() : base()
+        { }
 
         public AppDBContext(DbContextOptions options) : base(options)
-        { }
-        protected AppDBContext()
         { }
 
         /// <summary>
