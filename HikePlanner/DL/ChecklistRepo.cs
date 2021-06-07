@@ -86,6 +86,8 @@ namespace DL
         {
             return _context.Checklists
                 .AsNoTracking()
+                .Include(i => i.ChecklistItems)
+                .ThenInclude(i => i.Equipment)
                 .ToList();
         }
         /// <summary>
@@ -97,6 +99,8 @@ namespace DL
         {
             return _context.Checklists
                 .AsNoTracking()
+                .Include(i => i.ChecklistItems)
+                .ThenInclude(i => i.Equipment)
                 .FirstOrDefault(list => list.Id == id);
         }
         /// <summary>

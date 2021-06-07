@@ -40,9 +40,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            Checklist checklist = _checklistBL.GetChecklistById(id);
-            checklist.ChecklistItems = _checklistBL.GetChecklistItemsByChecklistId(checklist.Id);
-            return Ok(checklist);
+            return Ok(_checklistBL.GetChecklistById(id));
         }
 
         /// <summary>
