@@ -14,6 +14,7 @@ namespace Models
             Email = user.Email;
             Phone = user.Phone;
             Password = user.Password;
+            AddressId = user.AddressId;
         }
 
         //ToDo: Comeback after Auth0
