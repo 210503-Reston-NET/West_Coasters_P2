@@ -29,6 +29,20 @@ namespace DL
             return added;
         }
         /// <summary>
+        /// Creates new checklist item associated to a checklist
+        /// </summary>
+        /// <param name="item">checklistItem to be added</param>
+        /// <returns>created checklistItem</returns>
+        public ChecklistItem CreateNewChecklistItem(ChecklistItem item)
+        {
+            ChecklistItem added = _context.ChecklistItems.Add(item).Entity;
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+
+            return added;
+        }
+
+        /// <summary>
         /// Delete selected checklist
         /// </summary>
         /// <param name="checklist">checklist to be deleted</param>
@@ -38,6 +52,17 @@ namespace DL
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
         }
+        /// <summary>
+        /// Delete a ChecklistItem
+        /// </summary>
+        /// <param name="item">The checklist item to be deleted</param>
+        public void DeleteChecklistItem(ChecklistItem item)
+        {
+            _context.ChecklistItems.Remove(item);
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+        }
+
         /// <summary>
         /// Get all checklists in db
         /// </summary>
@@ -60,6 +85,30 @@ namespace DL
                 .FirstOrDefault(list => list.Id == id);
         }
         /// <summary>
+        /// Fetch the first checklistItem that matches the id param
+        /// </summary>
+        /// <param name="itemId">ChecklsitItem id</param>
+        /// <returns>Found ChecklistItem. If none is found, null</returns>
+        public ChecklistItem GetChecklistItemById(int itemId)
+        {
+            return _context.ChecklistItems
+                .AsNoTracking()
+                .FirstOrDefault(item => item.Id == itemId);
+        }
+        /// <summary>
+        /// Gets all checklistItems associated to the checklist Id.
+        /// </summary>
+        /// <param name="checklistId">Checklist Id</param>
+        /// <returns>List of checklist items associated to the checklist id</returns>
+        public List<ChecklistItem> GetChecklistItemsByChecklistId(int checklistId)
+        {
+            return _context.ChecklistItems
+                .AsNoTracking()
+                .Where(item => item.ChecklistId == checklistId)
+                .ToList();
+        }
+
+        /// <summary>
         /// Update a checklist
         /// </summary>
         /// <param name="checklist">the checklist to be updated (with the updated info)</param>
@@ -67,6 +116,14 @@ namespace DL
         public Checklist UpdateChecklist(Checklist checklist)
         {
             Checklist updated = _context.Checklists.Update(checklist).Entity;
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+            return updated;
+        }
+
+        public ChecklistItem UpdateChecklistItem(ChecklistItem item)
+        {
+            ChecklistItem updated = _context.ChecklistItems.Update(item).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
             return updated;

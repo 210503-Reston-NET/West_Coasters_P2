@@ -20,9 +20,19 @@ namespace BL
             return _repo.CreateNewChecklist(checklist);
         }
 
+        public ChecklistItem CreateNewChecklistItem(ChecklistItem item)
+        {
+            return _repo.CreateNewChecklistItem(item);
+        }
+
         public void DeleteChecklist(Checklist checklist)
         {
             _repo.DeleteChecklist(checklist);
+        }
+
+        public void DeleteChecklistItem(ChecklistItem item)
+        {
+            _repo.DeleteChecklistItem(item);
         }
 
         public List<Checklist> GetAllChecklists()
@@ -35,9 +45,24 @@ namespace BL
             return _repo.GetChecklistById(id);
         }
 
+        public ChecklistItem GetChecklistItemById(int itemId)
+        {
+            return _repo.GetChecklistItemById(itemId);
+        }
+
+        public List<ChecklistItem> GetChecklistItemsByChecklistId(int checklistId)
+        {
+            return _repo.GetChecklistItemsByChecklistId(checklistId);
+        }
+
         public Checklist UpdateChecklist(Checklist checklist)
         {
             return _repo.UpdateChecklist(checklist);
+        }
+
+        public ChecklistItem UpdateChecklistItem(ChecklistItem item)
+        {
+            return _repo.UpdateChecklistItem(item);
         }
     }
 }
