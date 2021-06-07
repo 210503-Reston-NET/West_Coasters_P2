@@ -1,10 +1,11 @@
+using System;
+using System.Text.RegularExpressions;
 namespace Models
 {
     public class User
     {
-        public User()
-        {
-        }
+        private string _name;
+        public User() {}
 
         public User(User user)
         {
@@ -18,8 +19,17 @@ namespace Models
         //ToDo: Comeback after Auth0
         //For now, use Guid.NewGuid().ToString() to get unique user Id
         public string UserId { get; set; }
-
-        public string Name { get; set; }
+        public string Name { get { return _name; } set {
+                if (value.Length == 0)
+                {
+                    throw new Exception("Name cannot be empty");
+                }
+                if (!Regex.IsMatch(value, @"^[A-Za-z .-]+$"))
+                {
+                    throw new Exception("Name is not valid");
+                }
+                _name = value;
+            } }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Phone { get; set; }
