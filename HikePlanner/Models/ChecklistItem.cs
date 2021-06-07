@@ -47,5 +47,7 @@ namespace Models
                 _equipmentId = value;
             }
         }
+
+        public Equipment Equipment { get; set; }
     }
 }
