@@ -40,6 +40,8 @@ namespace WebAPI
             services.AddScoped<IEquipmentBL, EquipmentBL>();
             services.AddScoped<IAddressRepo, AddressRepo>();
             services.AddScoped<IAddressBL, AddressBL>();
+            services.AddScoped<IUsersBL, UsersBL>();
+            services.AddScoped<IUsersRepo, UsersRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
