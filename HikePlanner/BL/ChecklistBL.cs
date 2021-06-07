@@ -25,14 +25,14 @@ namespace BL
             return _repo.CreateNewChecklistItem(item);
         }
 
-        public void DeleteChecklist(Checklist checklist)
+        public bool DeleteChecklist(int id)
         {
-            _repo.DeleteChecklist(checklist);
+            return _repo.DeleteChecklist(id);
         }
 
-        public void DeleteChecklistItem(ChecklistItem item)
+        public bool DeleteChecklistItem(int id)
         {
-            _repo.DeleteChecklistItem(item);
+            return _repo.DeleteChecklistItem(id);
         }
 
         public List<Checklist> GetAllChecklists()
