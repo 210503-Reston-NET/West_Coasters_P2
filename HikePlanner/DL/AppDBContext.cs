@@ -15,12 +15,9 @@ namespace DL
         /// Declaring entities
         /// </summary>
         public DbSet<User> Users { get; set; }
-
         public DbSet<Equipment> Equipments { get; set; }
         public DbSet<Address> Address { get; set; }
-
         public DbSet<Checklist> Checklists { get; set; }
-
         public DbSet<ChecklistItem> ChecklistItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,8 +35,9 @@ namespace DL
             .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<ChecklistItem>()
-            .Property(checklistItem => checklistItem.Id);
-            
+            .Property(checklistItem => checklistItem.Id)
+            .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Address>()
             .Property(address => address.Id)
             .ValueGeneratedOnAdd();
