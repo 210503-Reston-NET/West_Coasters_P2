@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
@@ -7,9 +6,10 @@ namespace DL
     public class AppDBContext : DbContext
     {
         public AppDBContext() : base()
-        {}
+        { }
+
         public AppDBContext(DbContextOptions options) : base(options)
-        {}
+        { }
 
         /// <summary>
         /// Declaring entities
@@ -17,7 +17,6 @@ namespace DL
         public DbSet<User> Users { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

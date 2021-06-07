@@ -3,7 +3,9 @@ namespace Models
     public class Activity
     {
         public Activity()
-        {}
+        {
+        }
+
         public Activity(Activity activity)
         {
             Id = activity.Id;
