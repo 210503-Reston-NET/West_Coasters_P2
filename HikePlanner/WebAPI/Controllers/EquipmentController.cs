@@ -22,10 +22,31 @@ namespace WebAPI.Controllers
             return Ok(_equipmentBL.GetAllEquipments());
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetEquipmentById(int id)
+        {
+            return Ok(_equipmentBL.GetEquipmentById(id));
+        }
+
         [HttpPost]
         public IActionResult AddNewEquipment([FromBody] Equipment newEquipment)
         {
             return Created("api/Equipment", _equipmentBL.AddEquipment(newEquipment));
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateEquipment(int id, [FromBody] Equipment updateEquipment)
+        {
+            _equipmentBL.UpdateEquipment(updateEquipment);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteRestaurant(int id)
+        {
+             _equipmentBL.DeleteEquipment(_equipmentBL.GetEquipmentById(id));
+            return NoContent();
+        }
+
     }
 }
