@@ -1,4 +1,5 @@
 using System;
+
 namespace Models
 {
     public class Trip
@@ -14,8 +15,8 @@ namespace Models
             this.Distance = distance;
             this.Creator = creator;
             this.Group = group;
-
         }
+
         public int Id { get; set; }
         public int ActivityId { get; set; }
         public int CheckListId { get; set; }
@@ -30,6 +31,5 @@ namespace Models
         //Notes will be shown on Post.Notes
 
         public Group Group { get; set; }
-
     }
 }

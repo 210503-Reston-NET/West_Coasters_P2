@@ -1,11 +1,10 @@
-﻿using System;
-
-namespace Models
+﻿namespace Models
 {
     public class Address
     {
         public Address()
         {}
+      
         public Address(Address address)
         {
             Street = address.Street;

@@ -3,7 +3,7 @@ namespace Models
     public class Post
     {
         public Post()
-        {}
+        { }
 
         public Post(int tripId, string userId, string Notes)
         {
