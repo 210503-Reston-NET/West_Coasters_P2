@@ -11,6 +11,7 @@ namespace DL
     public interface IPostRepo
     {
         Task<List<Post>> GetAllPostsAsync();
+        Task<List<Post>> GetAllPostsByTripIdAsync(int tripId);
         Task<Post> GetPostByIdAsync(int id);
         Task<Post> AddNewPostAsync(Post Post);
         Task<Post> UpdatePostAsync(Post Post);

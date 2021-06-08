@@ -116,19 +116,34 @@ namespace DL
             _context.Participants.Remove(toBeDeleted);
             await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
-        }  
+        }      
 
         /// <summary>
-        /// Get a list of participants
+        /// Get a list of participants by tripId
         /// </summary>
+        /// <param name="tripId"></param>
         /// <returns></returns>
-        public async Task<List<Participant>> GetAllParticipantsByAsync()
+        public async Task<List<Participant>> GetAllParticipantsByTripIdAsync(int tripId)
         {
             return await _context.Participants
                 .AsNoTracking()
+                .Where(obj => obj.TripId == tripId)
                 .Select(participant => participant)
                 .ToListAsync();
-        }      
+        }   
+
+        /// <summary>
+        /// Get a parcipant by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Participant> GetParticipantById(int id)
+        {
+            return await _context.Participants
+                .AsNoTracking()
+                .FirstOrDefaultAsync(obj => obj.Id == id);
+        }
+
 
         //To do - a list of posts
         //To do - get all trips by creator

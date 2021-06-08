@@ -33,21 +33,10 @@ namespace BL
             await _tripRepo.DeleteTripAsync(trip);
         }
 
-        public async Task<Dictionary<Trip, List<Participant>>> GetAllParticipantsByTripIdAsync()
+        public async Task<List<Participant>> GetAllParticipantsByTripIdAsync(int tripId)
         {
-            List<Participant> participants = await _tripRepo.GetAllParticipantsByAsync();
-            Dictionary<Trip, List<Participant>> tripWithParticipants = new Dictionary<Trip, List<Participant>>();
-            foreach(Participant p in participants)
-            {
-                Trip key = await GetTripByIdAsync(p.TripId);
-                if (!tripWithParticipants.ContainsKey(key))
-                {
-                    tripWithParticipants.Add(key, new List<Participant>());
-                }
-                List<Participant> value = tripWithParticipants.GetValueOrDefault(key);      
-                value.Add(new Participant{Id = p.Id, UserId = p.UserId});
-            }
-            return tripWithParticipants;
+            return await _tripRepo.GetAllParticipantsByTripIdAsync(tripId);
+            
         }
 
         public async Task<List<Trip>> GetAllTripsAsync()
@@ -60,6 +49,11 @@ namespace BL
             return await _tripRepo.GetTripByIdAsync(id);
         }
 
+        public async Task<Participant> GetParticipantById(int id)
+        {
+            return await _tripRepo.GetParticipantById(id);
+        }
+        
         public async Task<Participant> UpdateParticipantAsync(Participant participant)
         {
             return await _tripRepo.UpdateParticipantAsync(participant);

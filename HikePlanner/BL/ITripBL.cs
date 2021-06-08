@@ -19,6 +19,7 @@ namespace BL
         Task<Participant> AddNewParticipantAsync(Participant participant);
         Task<Participant> UpdateParticipantAsync(Participant participant);
         Task DeleteParticipantAsync(Participant participant);
-        Task<Dictionary<Trip, List<Participant>>> GetAllParticipantsByTripIdAsync();  
+        Task<List<Participant>> GetAllParticipantsByTripIdAsync(int tripId);
+        Task<Participant> GetParticipantById(int id);
     }
 }

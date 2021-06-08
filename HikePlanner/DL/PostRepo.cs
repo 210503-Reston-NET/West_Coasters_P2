@@ -15,18 +15,28 @@ namespace DL
         {
             _context = context;
         }
-
-        
-
         /// <summary>
-        /// Creates a new Post object in db
+        /// Get a list of post 
         /// </summary>
-        /// <param name="post">the Post obj to be added</param>
-        /// <returns>Post obj that has been created</returns>
+        /// <returns></returns>
         public async Task<List<Post>> GetAllPostsAsync()
         {
             return await _context.Posts
                 .AsNoTracking()
+                .Select(post => post)
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// Get a list of Posts by tripId
+        /// </summary>
+        /// <param name="tripId"></param>
+        /// <returns></returns>
+        public async Task<List<Post>> GetAllPostsByTripIdAsync(int tripId)
+        {
+            return await _context.Posts
+                .AsNoTracking()
+                .Where(obj => obj.TripId == tripId)
                 .Select(post => post)
                 .ToListAsync();
         }
@@ -80,9 +90,7 @@ namespace DL
             _context.Posts.Remove(toBeDeleted);
             await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
-        }    
+        }  
 
-        //To do - get all Post by tripId
-        
     }
 }
