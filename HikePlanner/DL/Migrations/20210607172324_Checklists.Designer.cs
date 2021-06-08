@@ -2,15 +2,17 @@
 using DL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DL.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210607172324_Checklists")]
+    partial class Checklists
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,10 +80,6 @@ namespace DL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChecklistId");
-
-                    b.HasIndex("EquipmentId");
-
                     b.ToTable("ChecklistItems");
                 });
 
@@ -127,28 +125,6 @@ namespace DL.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Models.ChecklistItem", b =>
-                {
-                    b.HasOne("Models.Checklist", null)
-                        .WithMany("ChecklistItems")
-                        .HasForeignKey("ChecklistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Equipment", "Equipment")
-                        .WithMany()
-                        .HasForeignKey("EquipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Equipment");
-                });
-
-            modelBuilder.Entity("Models.Checklist", b =>
-                {
-                    b.Navigation("ChecklistItems");
                 });
 #pragma warning restore 612, 618
         }
