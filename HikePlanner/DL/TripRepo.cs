@@ -65,6 +65,7 @@ namespace DL
             _context.ChangeTracker.Clear();
             return updated;
         }
+
         /// <summary>
         /// Delete trip object in db
         /// </summary>
@@ -78,7 +79,59 @@ namespace DL
             _context.ChangeTracker.Clear();
         }    
 
+        /// <summary>
+        /// Add Participant object in db
+        /// </summary>
+        /// <param name="participant"></param>
+        /// <returns></returns>
+        public async Task<Participant> AddNewParticipantAsync(Participant participant)
+        {
+            Participant addedParticipant = _context.Participants.Add(participant).Entity;
+            await _context.SaveChangesAsync();
+            _context.ChangeTracker.Clear();
+            return addedParticipant;        
+        }
+
+        /// <summary>
+        /// Update a participant 
+        /// </summary>
+        /// <param name="participant"></param>
+        /// <returns></returns>
+        public async Task<Participant> UpdateParticipantAsync(Participant participant)
+        {
+            Participant updated = _context.Participants.Update(participant).Entity;
+            await _context.SaveChangesAsync();
+            _context.ChangeTracker.Clear();
+            return updated;
+        }
+
+        /// <summary>
+        /// Delete a participant
+        /// </summary>
+        /// <param name="participant"></param>
+        /// <returns></returns>
+        public async Task DeleteParticipantAsync(Participant participant)
+        {
+            Participant toBeDeleted = _context.Participants.AsNoTracking().First(obj => obj.Id == participant.Id);
+            _context.Participants.Remove(toBeDeleted);
+            await _context.SaveChangesAsync();
+            _context.ChangeTracker.Clear();
+        }  
+
+        /// <summary>
+        /// Get a list of participants
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Participant>> GetAllParticipantsByAsync()
+        {
+            return await _context.Participants
+                .AsNoTracking()
+                .Select(participant => participant)
+                .ToListAsync();
+        }      
+
         //To do - a list of posts
         //To do - get all trips by creator
+        //To do - get all trips by ActivityId
     }
 }

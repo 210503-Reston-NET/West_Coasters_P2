@@ -8,7 +8,7 @@ using Models;
 
 namespace DL
 {
-    public class ActivityRepo
+    public class ActivityRepo : IActivityRepo
     {
         private readonly AppDBContext _context;
         public ActivityRepo(AppDBContext context)
@@ -21,7 +21,7 @@ namespace DL
         /// </summary>
         /// <param name="activity">the Activity obj to be added</param>
         /// <returns>Activity obj that has been created</returns>
-        public async Task<List<Activity>> GetAllActivitysAsync()
+        public async Task<List<Activity>> GetAllActivitisAsync()
         {
             return await _context.Activities
                 .AsNoTracking()

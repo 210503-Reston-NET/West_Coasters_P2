@@ -22,6 +22,7 @@ namespace DL
         public DbSet<Trip> Trips { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Participant> Participants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -57,6 +58,9 @@ namespace DL
             .Property(post => post.Id)
             .ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<Participant>()
+            .Property(participant => participant.Id)
+            .ValueGeneratedOnAdd();
         }
     }
 }

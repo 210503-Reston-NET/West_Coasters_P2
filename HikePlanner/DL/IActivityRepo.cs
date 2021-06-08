@@ -10,7 +10,7 @@ namespace DL
 {
     public interface IActivityRepo
     {
-        Task<List<Activity>> GetAllActivitysAsync();
+        Task<List<Activity>> GetAllActivitisAsync();
         Task<Activity> GetActivityByIdAsync(int id);
         Task<Activity> AddNewActivityAsync(Activity activity);
         Task<Activity> UpdateActivityAsync(Activity activity);

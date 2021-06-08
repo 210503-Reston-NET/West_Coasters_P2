@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
-namespace DL
+namespace BL
 {
-    public interface ITripRepo
+    public interface ITripBL
     {
         Task<List<Trip>> GetAllTripsAsync();
         Task<Trip> GetTripByIdAsync(int id);
@@ -19,6 +19,6 @@ namespace DL
         Task<Participant> AddNewParticipantAsync(Participant participant);
         Task<Participant> UpdateParticipantAsync(Participant participant);
         Task DeleteParticipantAsync(Participant participant);
-        Task<List<Participant>> GetAllParticipantsByAsync();
+        Task<Dictionary<Trip, List<Participant>>> GetAllParticipantsByTripIdAsync();  
     }
 }

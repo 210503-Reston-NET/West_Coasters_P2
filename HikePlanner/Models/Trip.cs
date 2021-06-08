@@ -44,7 +44,7 @@ namespace Models
         public int ActivityId { get; set; }
         public int CheckListId { get; set; }
 
-        public Group Group { get; set; }
+        public Participant Participant { get; set; }
         public Checklist Checklist { get; set; }
         public List<Post> Posts { get; set; }
     }
