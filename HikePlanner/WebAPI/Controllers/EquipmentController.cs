@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using BL;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -20,34 +21,34 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Produces("application/json")]
-        public IActionResult GetAllEquipments()
+        public async Task<IActionResult> GetAllEquipmentsAsync()
         {
-            return Ok(_equipmentBL.GetAllEquipments());
+            return Ok(await _equipmentBL.GetAllEquipmentsAsync());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetEquipmentById(int id)
+        public async Task<IActionResult> GetEquipmentByIdAsync(int id)
         {
-            return Ok(_equipmentBL.GetEquipmentById(id));
+            return Ok(await _equipmentBL.GetEquipmentByIdAsync(id));
         }
 
         [HttpPost]
-        public IActionResult AddNewEquipment([FromBody] Equipment newEquipment)
+        public async Task<IActionResult> AddNewEquipmentAsync([FromBody] Equipment newEquipment)
         {
-            return Created("api/Equipment", _equipmentBL.AddEquipment(newEquipment));
+            return Created("api/Equipment", await _equipmentBL.AddEquipmentAsync(newEquipment));
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateEquipment(int id, [FromBody] Equipment updateEquipment)
+        public async Task<IActionResult> UpdateEquipmentAsync(int id, [FromBody] Equipment updateEquipment)
         {
-            _equipmentBL.UpdateEquipment(updateEquipment);
+            await _equipmentBL.UpdateEquipmentAsync(updateEquipment);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteEquipment(int id)
+        public async Task<IActionResult> DeleteEquipmentAsync(int id)
         {
-             _equipmentBL.DeleteEquipment(_equipmentBL.GetEquipmentById(id));
+            await _equipmentBL.DeleteEquipmentAsync(await _equipmentBL.GetEquipmentByIdAsync(id));
             return NoContent();
         }
 

@@ -1,16 +1,15 @@
 using System.Collections.Generic;
 using Models;
+using System.Threading.Tasks;
 
 namespace BL
 {
     public interface IEquipmentBL
     {
-        List<Equipment> GetAllEquipments();
-
-        Equipment AddEquipment(Equipment equipment);
-
-        void DeleteEquipment(Equipment equipment);
-        Equipment UpdateEquipment(Equipment equipment);
-        Equipment GetEquipmentById(int id);
+        Task<List<Equipment>> GetAllEquipmentsAsync();
+        Task<Equipment> AddEquipmentAsync(Equipment equipment);
+        Task DeleteEquipmentAsync(Equipment equipment);
+        Task<Equipment> UpdateEquipmentAsync(Equipment equipment);
+        Task<Equipment> GetEquipmentByIdAsync(int id);
     }
 }

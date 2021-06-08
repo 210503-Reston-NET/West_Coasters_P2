@@ -15,24 +15,24 @@ namespace BL
         {
             _addressRepo = addressRepo;
         }
-        public Address AddAddress(string id, Address adressToAdd)
+        public async Task<Address> AddAddressAsync(string userId, Address adressToAdd)
         {
-            return _addressRepo.AddAddress(id, adressToAdd);
+            return await _addressRepo.AddAddressAsync(userId, adressToAdd);
         }
 
-        public Address DeleteAddress(Address address)
+        public async Task DeleteAddressAsync(Address address)
         {
-            return _addressRepo.DeleteAddress(address);
+             await _addressRepo.DeleteAddressAsync(address);
         }
 
-        public Address GetAddressById(int id)
+        public async Task<Address> GetAddressByIdAsync(int id)
         {
-            return _addressRepo.GetAddressById(id);
+            return await _addressRepo.GetAddressByIdAsync(id);
         }
-
-        public Address UpdateAddress(Address newAddress)
+        
+        public async Task<Address> UpdateAddressAysncAsync(Address newAddress)
         {
-            return _addressRepo.UpdateAddress(newAddress);
+            return await _addressRepo.UpdateAddressAysncAsync(newAddress);
         }
     }
 }

@@ -28,10 +28,10 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns>list of checklists</returns>
         [HttpGet()]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
             Log.Information("GET api/Checklist");
-            return Ok(_checklistBL.GetAllChecklists());
+            return Ok(await _checklistBL.GetAllChecklistsAsync());
         }
         /// <summary>
         /// GET api/<ChecklistController>/5
@@ -41,10 +41,10 @@ namespace WebAPI.Controllers
         /// <param name="id">checklist id</param>
         /// <returns>found checklist</returns>
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
             Log.Information("GET api/Checklist/{id}", id);
-            return Ok(_checklistBL.GetChecklistById(id));
+            return Ok(await _checklistBL.GetChecklistByIdAsync(id));
         }
 
         /// <summary>
@@ -53,11 +53,11 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="value">checklist obj to be created</param>
         [HttpPost]
-        public IActionResult Post([FromBody] Checklist checklist)
+        public async Task<IActionResult> PostAsync([FromBody] Checklist checklist)
         {
             Log.Information("Reached Controller POST api/Checklist");
             Log.Information("Received following item: {Checklist}", checklist);
-            return Created("api/Checklist", _checklistBL.CreateNewChecklist(checklist));
+            return Created("api/Checklist", await _checklistBL.CreateNewChecklistAsync(checklist));
         }
 
         /// <summary>
@@ -67,11 +67,11 @@ namespace WebAPI.Controllers
         /// <param name="id">checklsit Id</param>
         /// <param name="value">checklist to be updated</param>
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Checklist checklist)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] Checklist checklist)
         {
             Log.Information("Reached Controller PUT api/Checklist/{id}", id);
             Log.Information("Received following item: {Checklist}", checklist);
-            return Ok(_checklistBL.UpdateChecklist(checklist));
+            return Ok(await _checklistBL.UpdateChecklistAsync(checklist));
         }
 
         /// <summary>
@@ -81,10 +81,10 @@ namespace WebAPI.Controllers
         /// <param name="id">checklist Id</param>
         /// <returns>Bool, true when successful</returns>
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             Log.Information("Reached Controller DELETE api/Checklist/{id}", id);
-            return Ok(_checklistBL.DeleteChecklist(id));
+            return Ok(await _checklistBL.DeleteChecklistAsync(id));
         }
 
         /// <summary>
@@ -95,9 +95,9 @@ namespace WebAPI.Controllers
         /// <param name="itemId">checklist item id</param>
         /// <returns>found checklist</returns>
         [HttpGet("{listId}/item/{itemId}")]
-        public IActionResult Get(int listId, int itemId)
+        public async Task<IActionResult> GetAsync(int listId, int itemId)
         {
-            return Ok(_checklistBL.GetChecklistItemById(itemId));
+            return Ok(await _checklistBL.GetChecklistItemByIdAsync(itemId));
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace WebAPI.Controllers
         [HttpPost("{listId}/item")]
         public IActionResult Post(int listId, [FromBody] ChecklistItem checklistItem)
         {
-            return Created("api/Checklist", _checklistBL.CreateNewChecklistItem(checklistItem));
+            return Created("api/Checklist", _checklistBL.CreateNewChecklistItemAsync(checklistItem));
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace WebAPI.Controllers
         [HttpPut("{listId}/item/{itemId}")]
         public IActionResult Put(int listId, int itemId, [FromBody] ChecklistItem checklistItem)
         {
-            return Ok(_checklistBL.UpdateChecklistItem(checklistItem));
+            return Ok(_checklistBL.UpdateChecklistItemAsync(checklistItem));
         }
 
         /// <summary>
@@ -133,9 +133,9 @@ namespace WebAPI.Controllers
         /// <param name="itemId">checklist item id</param>
         /// <returns>Bool, true when successful</returns>
         [HttpDelete("{listId}/item/{itemId}")]
-        public IActionResult Delete(int listId, int itemId)
+        public async Task<IActionResult> DeleteAsync(int listId, int itemId)
         {
-            return Ok(_checklistBL.DeleteChecklistItem(itemId));
+            return Ok(await _checklistBL.DeleteChecklistItemAsync(itemId));
         }
     }
 }
