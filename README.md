@@ -11,7 +11,7 @@ The *Hike Planner App* is a web application that helps hikers and outdoor enthus
 ## Tables
 - User
 - Address
-- Group
+- Participant
 - Activity
 - Trip
 - Post
