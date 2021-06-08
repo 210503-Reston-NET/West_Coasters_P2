@@ -3,7 +3,7 @@ using BL;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
-namespace WebAPI
+namespace WebAPI.Controllers
 {
     [Route("api/Trips/{tripId}/Participants")]
     [ApiController]

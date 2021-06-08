@@ -36,6 +36,8 @@ namespace WebAPI
             services.AddScoped<IUsersRepo, UsersRepo>();
             services.AddScoped<ITripRepo, TripRepo>();
             services.AddScoped<ITripBL, TripBL>();
+            services.AddScoped<IPostRepo, PostRepo>();
+            services.AddScoped<IPostBL, PostBL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
