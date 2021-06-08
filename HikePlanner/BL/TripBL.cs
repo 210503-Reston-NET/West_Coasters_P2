@@ -67,7 +67,7 @@ namespace BL
 
         public async Task<Trip> UpdateTripAsync(Trip trip)
         {
-             return await _tripRepo.UpdateTripAsync(trip);
+            return await _tripRepo.UpdateTripAsync(trip);
         }
     }
 }
