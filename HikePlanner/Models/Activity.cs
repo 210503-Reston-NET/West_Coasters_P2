@@ -27,6 +27,8 @@ namespace Models
         public string TrailId { get; set; }
         public string TrailHead { get; set; }
 
-        public List<Activity> Activities { get; set; }
+        //public string Creator { get; set; }
+
+        public List<Trip> Trips { get; set; }
     }
 }

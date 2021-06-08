@@ -17,10 +17,9 @@ namespace DL
         }
 
         /// <summary>
-        /// Creates a new Activity object in db
+        /// Get a list of Activities
         /// </summary>
-        /// <param name="activity">the Activity obj to be added</param>
-        /// <returns>Activity obj that has been created</returns>
+        /// <returns></returns>
         public async Task<List<Activity>> GetAllActivitisAsync()
         {
             return await _context.Activities
@@ -28,6 +27,9 @@ namespace DL
                 .Select(activity => activity)
                 .ToListAsync();
         }
+
+        //ToDo: Get a list of Acvitivies by creator
+
 
         /// <summary>
         /// Get Activity object by id
@@ -79,9 +81,5 @@ namespace DL
             await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
         }    
-
-        //To do - a list of trips
-        //To do - get all activity by creator
-        
     }
 }

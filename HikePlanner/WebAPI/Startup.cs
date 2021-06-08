@@ -38,6 +38,8 @@ namespace WebAPI
             services.AddScoped<ITripBL, TripBL>();
             services.AddScoped<IPostRepo, PostRepo>();
             services.AddScoped<IPostBL, PostBL>();
+            services.AddScoped<IActivityRepo, ActivityRepo>();
+            services.AddScoped<IActivityBL, ActivityBL>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
