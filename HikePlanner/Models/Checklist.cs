@@ -36,6 +36,6 @@ namespace Models
                 _tripId = value;
             }
         }
-        private List<ChecklistItem> ChecklistItems { get; set; }
+        public List<ChecklistItem> ChecklistItems { get; set; }
     }
 }

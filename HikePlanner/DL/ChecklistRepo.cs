@@ -8,7 +8,7 @@ using Models;
 
 namespace DL
 {
-    class ChecklistRepo : IChecklistRepo
+    public class ChecklistRepo : IChecklistRepo
     {
         private readonly AppDBContext _context;
         public ChecklistRepo(AppDBContext context)
@@ -44,23 +44,38 @@ namespace DL
 
         /// <summary>
         /// Delete selected checklist
+        /// Takes the id of the checklist to be deleted
+        /// And gets the state of the object from the ChangeTracker
+        /// If it is "Deleted" return true
+        /// If it's anything else, return false
         /// </summary>
-        /// <param name="checklist">checklist to be deleted</param>
-        public void DeleteChecklist(Checklist checklist)
+        /// <param name="id">Id of the checklist to be deleted</param>
+        /// <returns>Boolean, true for operation successful, false for something went wrong</returns>
+        public bool DeleteChecklist(int id)
         {
-            _context.Checklists.Remove(checklist);
+            Checklist toDelete = new();
+            toDelete.Id = id;
+            bool successful = _context.Checklists.Remove(toDelete).State.ToString() == "Deleted" ? true : false;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
+            return successful;
         }
         /// <summary>
         /// Delete a ChecklistItem
+        ///Takes the id of the checklistItem to be deleted
+        /// And gets the state of the object from the ChangeTracker
+        /// If it is "Deleted" return true
+        /// If it's anything else, return false
         /// </summary>
-        /// <param name="item">The checklist item to be deleted</param>
-        public void DeleteChecklistItem(ChecklistItem item)
+        /// <param name="id">The id fo the checklist item to be deleted</param>
+        public bool DeleteChecklistItem(int id)
         {
-            _context.ChecklistItems.Remove(item);
+            ChecklistItem toDelete = new();
+            toDelete.Id = id;
+            bool successful = _context.ChecklistItems.Remove(toDelete).State.ToString() == "Deleted" ? true : false;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
+            return successful;
         }
 
         /// <summary>
@@ -71,6 +86,8 @@ namespace DL
         {
             return _context.Checklists
                 .AsNoTracking()
+                .Include(i => i.ChecklistItems)
+                .ThenInclude(i => i.Equipment)
                 .ToList();
         }
         /// <summary>
@@ -82,6 +99,8 @@ namespace DL
         {
             return _context.Checklists
                 .AsNoTracking()
+                .Include(i => i.ChecklistItems)
+                .ThenInclude(i => i.Equipment)
                 .FirstOrDefault(list => list.Id == id);
         }
         /// <summary>
@@ -93,6 +112,7 @@ namespace DL
         {
             return _context.ChecklistItems
                 .AsNoTracking()
+                .Include("Equipment")
                 .FirstOrDefault(item => item.Id == itemId);
         }
         /// <summary>
@@ -105,6 +125,7 @@ namespace DL
             return _context.ChecklistItems
                 .AsNoTracking()
                 .Where(item => item.ChecklistId == checklistId)
+                .Include("Equipment")
                 .ToList();
         }
 

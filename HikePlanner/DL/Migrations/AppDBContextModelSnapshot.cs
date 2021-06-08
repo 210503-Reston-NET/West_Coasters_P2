@@ -108,6 +108,10 @@ namespace DL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ChecklistId");
+
+                    b.HasIndex("EquipmentId");
+
                     b.ToTable("ChecklistItems");
                 });
 
@@ -281,6 +285,27 @@ namespace DL.Migrations
                     b.Navigation("Participant");
 
                     b.Navigation("Posts");
+
+            modelBuilder.Entity("Models.ChecklistItem", b =>
+                {
+                    b.HasOne("Models.Checklist", null)
+                        .WithMany("ChecklistItems")
+                        .HasForeignKey("ChecklistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Equipment", "Equipment")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Equipment");
+                });
+
+            modelBuilder.Entity("Models.Checklist", b =>
+                {
+                    b.Navigation("ChecklistItems");
                 });
 #pragma warning restore 612, 618
         }
