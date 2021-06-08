@@ -32,6 +32,14 @@ namespace WebAPI
             services.AddScoped<IEquipmentBL, EquipmentBL>();
             services.AddScoped<IUsersBL, UsersBL>();
             services.AddScoped<IUsersRepo, UsersRepo>();
+          
+            services.AddScoped<ITripRepo, TripRepo>();
+            services.AddScoped<ITripBL, TripBL>();
+            services.AddScoped<IPostRepo, PostRepo>();
+            services.AddScoped<IPostBL, PostBL>();
+            services.AddScoped<IActivityRepo, ActivityRepo>();
+            services.AddScoped<IActivityBL, ActivityBL>(); 
+
             services.AddScoped<IChecklistBL, ChecklistBL>();
             services.AddScoped<IChecklistRepo, ChecklistRepo>();
         }

@@ -7,7 +7,7 @@ using BL;
 using Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
+// https://localhost:5001/api/Equipments
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]

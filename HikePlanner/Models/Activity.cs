@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Models
 {
     public class Activity
@@ -6,13 +9,16 @@ namespace Models
         {
         }
 
-        public Activity(Activity activity)
+        public Activity(string name, string traidId, string trailhead)
         {
-            Id = activity.Id;
-            Name = activity.Name;
-            TrailId = activity.TrailId;
-            TrailHead = activity.TrailHead;
-            Notes = activity.Notes;
+            Name = name;
+            TrailId = traidId;
+            TrailHead = trailhead;
+        }
+
+        public Activity(int id, string name, string traidId, string trailhead) : this (name, traidId, trailhead)
+        {
+            Id = id;
         }
 
         public int Id { get; set; }
@@ -20,5 +26,9 @@ namespace Models
         public string Notes { get; set; }
         public string TrailId { get; set; }
         public string TrailHead { get; set; }
+
+        //public string Creator { get; set; }
+
+        public List<Trip> Trips { get; set; }
     }
 }

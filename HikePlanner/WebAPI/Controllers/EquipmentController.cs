@@ -2,9 +2,12 @@ using BL;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
+//https://localhost:5001/api/Equipments
+
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("api/Equipments")]
     [ApiController]
     public class EquipmentController : ControllerBase
     {
@@ -42,7 +45,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteRestaurant(int id)
+        public IActionResult DeleteEquipment(int id)
         {
              _equipmentBL.DeleteEquipment(_equipmentBL.GetEquipmentById(id));
             return NoContent();

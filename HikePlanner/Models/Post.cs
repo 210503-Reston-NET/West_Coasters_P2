@@ -15,5 +15,6 @@ namespace Models
         public int TripId { get; set; }
         public string UserId { get; set; }
         public string Notes { get; set; }
+        //public string ImageURL { get; set; }
     }
 }
