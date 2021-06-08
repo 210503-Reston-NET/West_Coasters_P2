@@ -8,7 +8,7 @@ using Models;
 
 namespace DL
 {
-    public class TripRepo
+    public class TripRepo : ITripRepo
     {
         private readonly AppDBContext _context;
         public TripRepo(AppDBContext context)
@@ -17,10 +17,9 @@ namespace DL
         }
 
         /// <summary>
-        /// Creates a new Trip object in db
+        /// Get all trips in db
         /// </summary>
-        /// <param name="Trip">the Trip obj to be added</param>
-        /// <returns>Trip obj that has been created</returns>
+        /// <returns></returns>
         public async Task<List<Trip>> GetAllTripsAsync()
         {
             return await _context.Trips
@@ -28,6 +27,7 @@ namespace DL
                 .Select(trip => trip)
                 .ToListAsync();
         }
+
         /// <summary>
         /// Get trip object by id
         /// </summary>
@@ -37,8 +37,9 @@ namespace DL
         {
             return await _context.Trips
                 .AsNoTracking()
-                .FirstOrDefaultAsync(list => list.Id == id);
+                .FirstOrDefaultAsync(obj => obj.Id == id);
         }
+
         /// <summary>
         /// Add new trip object in db
         /// </summary>
@@ -51,6 +52,7 @@ namespace DL
             _context.ChangeTracker.Clear();
             return addedTrip;
         }
+
         /// <summary>
         /// Update trip object in db
         /// </summary>
@@ -77,6 +79,6 @@ namespace DL
         }    
 
         //To do - a list of posts
-        
+        //To do - get all trips by creator
     }
 }

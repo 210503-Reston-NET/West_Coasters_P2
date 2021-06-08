@@ -26,7 +26,7 @@ namespace Models
             Id = id;
         }
 
-        public Trip(int checklistId, Trip trip) : this(trip.Id, trip.ActivityId, trip.StartTime, trip.StartDate, trip.EndDate, trip.Distance, trip.Creator)
+        public Trip(int checklistId, int id, int activityId, DateTime startTime, DateTime startDate, DateTime endDate, int distance, string creator) : this (id, activityId, startTime, startDate, endDate, distance, creator)
         {
             CheckListId = checklistId;
         }
@@ -45,7 +45,6 @@ namespace Models
         public int CheckListId { get; set; }
 
         public Group Group { get; set; }
-        public Activity Activity { get; set; }
         public Checklist Checklist { get; set; }
         public List<Post> Posts { get; set; }
     }

@@ -35,7 +35,7 @@ namespace DL
         {
             return _context.Equipments
                 .AsNoTracking()
-                .FirstOrDefault(list => list.Id == id);
+                .FirstOrDefault(obj => obj.Id == id);
         }
 
         /// Creates a new equipment object in db
