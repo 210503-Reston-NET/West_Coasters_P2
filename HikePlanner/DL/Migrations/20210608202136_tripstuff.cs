@@ -32,13 +32,11 @@ namespace DL.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    StartTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     StartDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Distance = table.Column<int>(type: "integer", nullable: false),
                     Creator = table.Column<string>(type: "text", nullable: true),
                     ActivityId = table.Column<int>(type: "integer", nullable: false),
-                    CheckListId = table.Column<int>(type: "integer", nullable: false),
                     ChecklistId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
