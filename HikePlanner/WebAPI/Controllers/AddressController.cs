@@ -10,8 +10,7 @@ using Models;
 // https://localhost:5001/api/Equipments
 namespace WebAPI.Controllers
 {
-    //[Route("api/[controller]")]
-    [Route("api/Users/{userId}/Address")]
+    [Route("api/Address")]
     [ApiController]
     public class AddressController : ControllerBase
     {

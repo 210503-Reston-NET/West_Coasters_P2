@@ -67,6 +67,6 @@ namespace DL
 
 /*
 CLI:
-dotnet ef migrations add tripstuff -c AppDBContext --startup-project ../WebAPI
+dotnet ef migrations add updateTrip -c AppDBContext --startup-project ../WebAPI
 dotnet ef database update --startup-project ../WebAPI
 */

@@ -37,9 +37,9 @@ namespace BL
             return await _activityRepo.GetActivityByIdAsync(id);
         }
 
-        // public async Task<List<Activity>> GetAllActivitiesByCreator(string creator)
-        // {
-        //     return await _activityRepo.GetAllActivitiesByCreator(creator);
-        // }
+        public async Task<List<Activity>> GetAllActivitisByCreatorAsync(string creator)
+        {
+            return await _activityRepo.GetAllActivitisByCreatorAsync(creator);
+        }
     }
 }

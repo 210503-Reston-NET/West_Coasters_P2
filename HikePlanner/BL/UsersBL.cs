@@ -14,29 +14,29 @@ namespace BL
         {
             _userrepo = usersRepo;
         }
-        public User AddUser(User user)
+        public async Task<User> AddUserAsync(User user)
         {
-            return _userrepo.AddUser(user);
+            return await _userrepo.AddUserAsync(user);
         }
 
-        public User DeleteUser(User user)
+        public async Task<User> DeleteUserAsync(User user)
         {
-            return _userrepo.DeleteUser(user);
+            return await _userrepo.DeleteUserAsync(user);
         }
 
-        public List<User> GetAllUsers()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            return _userrepo.GetAllUsers();
+            return await _userrepo.GetAllUsersAsync();
         }
 
-        public User GetUserById(string id)
+        public async Task<User> GetUserByIdAsync(string id)
         {
-            return _userrepo.GetUserById(id);
+            return await _userrepo.GetUserByIdAsync(id);
         }
 
-        public User UpdateUser(User userToUpdate)
+        public async Task<User> UpdateUserAsync(User userToUpdate)
         {
-            return _userrepo.UpdateUser(userToUpdate);
+            return await _userrepo.UpdateUserAsync(userToUpdate);
         }
     }
 }

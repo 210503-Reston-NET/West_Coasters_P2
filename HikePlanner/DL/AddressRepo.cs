@@ -71,7 +71,7 @@ namespace DL
         /// <returns></returns>
         public async Task DeleteAddressAsync(Address address)
         {
-            Address addressToBeDeleted = _context.Address.AsNoTracking().FirstOrDefault(add => add.Id == address.Id);
+            Address addressToBeDeleted = _context.Address.FirstOrDefault(add => add.Id == address.Id);
             _context.Address.Remove(addressToBeDeleted);
             await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();

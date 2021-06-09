@@ -6,7 +6,7 @@ using Models;
 namespace WebAPI.Controllers
 {
     //[Route("api/Users/{userId}/Activities")]
-    [Route("api/Activities")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ActivityController : ControllerBase
     {
@@ -23,10 +23,24 @@ namespace WebAPI.Controllers
             return Ok(await _activityBL.GetAllActivitiessAsync());
         }
         
-        [HttpPost]
-        public async Task<IActionResult> AddNewActivityAsync(string userId, [FromBody] Activity newActivity)
+        //Get all activity by creator
+        [HttpGet("User/{userId}")]
+        public async Task<IActionResult> GetAllActivitisByCreatorAsync(string userId)
         {
-            return Created($"/api/Users/{userId}/Activities", await _activityBL.AddNewActivityAsync(newActivity));
+            return Ok(await _activityBL.GetAllActivitisByCreatorAsync(userId));
+        }
+
+       
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetActivityByIdAsync(int id)
+        {
+            return Ok(await _activityBL.GetActivityByIdAsync(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddNewActivityAsync([FromBody] Activity newActivity)
+        {
+            return Created($"/api/Activity", await _activityBL.AddNewActivityAsync(newActivity));
         }
 
         [HttpPut("{id}")]

@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DL.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20210608202136_tripstuff")]
-    partial class tripstuff
+    [Migration("20210609055301_updateTrip")]
+    partial class updateTrip
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,6 +161,9 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("ImageURL")
                         .HasColumnType("text");
 
@@ -240,6 +243,8 @@ namespace DL.Migrations
 
                     b.HasKey("UserId");
 
+                    b.HasIndex("AddressId");
+
                     b.ToTable("Users");
                 });
 
@@ -291,6 +296,17 @@ namespace DL.Migrations
                         .HasForeignKey("ChecklistId");
 
                     b.Navigation("Checklist");
+                });
+
+            modelBuilder.Entity("Models.User", b =>
+                {
+                    b.HasOne("Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Models.Activity", b =>

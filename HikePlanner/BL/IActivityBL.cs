@@ -12,5 +12,6 @@ namespace BL
         Task<Activity> UpdateActivityAsync(Activity activity);
         Task<List<Activity>> GetAllActivitiessAsync();
         Task<Activity> GetActivityByIdAsync(int id);
+        Task<List<Activity>> GetAllActivitisByCreatorAsync(string creator);
     }
 }

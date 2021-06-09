@@ -9,10 +9,11 @@ namespace BL
 {
     public interface IUsersBL
     {
-        public User AddUser(User user);
-        public List<User> GetAllUsers();
-        public User GetUserById(string id);
-        public User UpdateUser(User userToUpdate);
-        public User DeleteUser(User user);
+        Task<User> AddUserAsync(User user);
+        Task<List<User>> GetAllUsersAsync();
+        Task<User> GetUserByIdAsync(string id);
+        Task<User> UpdateUserAsync(User userToUpdate);
+        Task<User> DeleteUserAsync(User user);
+        
     }
 }

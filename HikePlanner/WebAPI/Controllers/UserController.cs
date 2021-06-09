@@ -8,26 +8,27 @@ using Models;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("api/Users")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IUsersBL _iusersBL;
-        public UsersController(IUsersBL usersBL)
+        private readonly IUsersBL _usersBL;
+        public UserController(IUsersBL usersBL)
         {
-            _iusersBL = usersBL;
+            _usersBL = usersBL;
         }
 
         /// <summary>
         /// Getting all users from User's Table
         /// </summary>
         /// <returns></returns>
-        // GET: api/<UsersController>
+        // GET: api/<UserController>
         [HttpGet]
         [Produces("application/json")]
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsersAsync()
         {
-            return Ok(_iusersBL.GetAllUsers());
+            return Ok(await _usersBL.GetAllUsersAsync());
         }
 
         /// <summary>
@@ -35,11 +36,11 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="userId"></param> this is user id
         /// <returns></returns>
-        // GET api/<UsersController>/5
+        // GET api/<UserController>/5
         [HttpGet("{userId}")]
-        public IActionResult GetUserById(string userId)
+        public async Task<IActionResult> GetUserByIdAsync(string userId)
         {
-            return Ok(_iusersBL.GetUserById(userId));
+            return Ok(await _usersBL.GetUserByIdAsync(userId));
         }
 
         /// <summary>
@@ -47,14 +48,14 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="newUser"></param>
         /// <returns></returns>
-        // POST api/<UsersController>
+        // POST api/<UserController>
         [HttpPost]
-        public IActionResult AddUser([FromBody] User newUser)
+        public async Task<IActionResult> AddUserAsync([FromBody] User newUser)
         {
             Guid guid = Guid.NewGuid();
             //generating Guid unique id for user which is string
             newUser.UserId = guid.ToString();
-            return Created("api/Users",_iusersBL.AddUser(newUser));
+            return Created("api/User", await _usersBL.AddUserAsync(newUser));
         }
 
         /// <summary>
@@ -63,19 +64,19 @@ namespace WebAPI.Controllers
         /// <param name="id"></param>
         /// <param name="userToUpdtate"></param>
         /// <returns></returns>
-        // PUT api/<UsersController>/5
+        // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(string id, [FromBody] User userToUpdtate)
+        public async Task<IActionResult> PutAsync(string id, [FromBody] User userToUpdtate)
         {
-            _iusersBL.UpdateUser(userToUpdtate);
+            await _usersBL.UpdateUserAsync(userToUpdtate);
             return NoContent();
         }
 
-        // DELETE api/<UsersController>/5
+        // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> DeleteAsync(string id)
         {
-            _iusersBL.DeleteUser(_iusersBL.GetUserById(id));
+            await _usersBL.DeleteUserAsync(await _usersBL.GetUserByIdAsync(id));
             return NoContent();
         }
     }

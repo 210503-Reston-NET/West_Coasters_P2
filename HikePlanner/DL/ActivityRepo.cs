@@ -29,7 +29,13 @@ namespace DL
         }
 
         //ToDo: Get a list of Acvitivies by creator
-
+        public async Task<List<Activity>> GetAllActivitisByCreatorAsync(string creator)
+        {
+            return await _context.Activities
+                .AsNoTracking()
+                .Where(obj => obj.Creator == creator)
+                .ToListAsync();
+        }
 
         /// <summary>
         /// Get Activity object by id
@@ -76,7 +82,7 @@ namespace DL
         /// <returns></returns>
         public async Task DeleteActivityAsync(Activity Activity)
         {
-            Activity toBeDeleted = _context.Activities.AsNoTracking().First(obj => obj.Id == Activity.Id);
+            Activity toBeDeleted = _context.Activities.First(obj => obj.Id == Activity.Id);
             _context.Activities.Remove(toBeDeleted);
             await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();

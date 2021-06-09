@@ -30,9 +30,13 @@ namespace WebAPI
             services.AddDbContext<AppDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HikePlannerDB")));
             services.AddScoped<IEquipmentRepo, EquipmentRepo>();
             services.AddScoped<IEquipmentBL, EquipmentBL>();
+
             services.AddScoped<IUsersBL, UsersBL>();
             services.AddScoped<IUsersRepo, UsersRepo>();
-          
+
+            services.AddScoped<IAddressRepo, AddressRepo>();
+            services.AddScoped<IAddressBL, AddressBL>();
+
             services.AddScoped<ITripRepo, TripRepo>();
             services.AddScoped<ITripBL, TripBL>();
             services.AddScoped<IPostRepo, PostRepo>();
