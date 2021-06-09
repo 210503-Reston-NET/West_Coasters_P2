@@ -11,19 +11,18 @@ namespace Models
         public Post()
         { }
 
-        public Post(int tripId, string userId, string Notes, DateTime dateCreated)
+        public Post(int tripId, string userId, string Notes)
         {
             TripId = tripId;
             UserId = userId;
-            DateCreated = dateCreated;
         }
 
-        public Post(string imageURL, int tripId, string userId, string Notes, DateTime dateCreated) : this(tripId, userId, Notes, dateCreated)
+        public Post(string imageURL, int tripId, string userId, string Notes, DateTime dateCreated) : this(tripId, userId, Notes)
         {
             ImageURL = imageURL;
         }
 
-        public Post(int id, int tripId, string userId, string Notes, DateTime dateCreated) : this(tripId, userId, Notes, dateCreated)
+        public Post(int id, int tripId, string userId, string Notes, DateTime dateCreated) : this(tripId, userId, Notes)
         {
             Id = id;
         }

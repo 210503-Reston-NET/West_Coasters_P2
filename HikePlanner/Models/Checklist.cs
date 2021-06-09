@@ -25,18 +25,19 @@ namespace Models
                 _name = value;
             }
         }
-        public int TripId 
-        {
-            get { return _tripId; }
-            set
-            {
-                if(value <= 0)
-                {
-                    throw new ValidationException("Checklist TripId cannot be less than or equal to 0");
-                }
-                _tripId = value;
-            }
-        }
+        // public int TripId 
+        // {
+        //     get { return _tripId; }
+        //     set
+        //     {
+        //         if(value <= 0)
+        //         {
+        //             throw new ValidationException("Checklist TripId cannot be less than or equal to 0");
+        //         }
+        //         _tripId = value;
+        //     }
+        // }
+        public int TripId { get; set; }
 
         //public DateTime DateCreated { get; set; }
         //public string Creator { get; set; }

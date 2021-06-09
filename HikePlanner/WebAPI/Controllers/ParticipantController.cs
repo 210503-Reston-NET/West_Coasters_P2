@@ -38,7 +38,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteParticipantAsync(int id)
         {
-             await _tripBL.DeleteParticipantAsync(await _tripBL.GetParticipantById(id));
+             await _tripBL.DeleteParticipantAsync(await _tripBL.GetParticipantByIdAsync(id));
             return NoContent();
         }
     }

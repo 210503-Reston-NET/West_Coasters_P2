@@ -7,7 +7,7 @@ namespace WebAPI.Controllers
 {
     //[Route("api/[controller]")]
     //[Route("api/activities/{activityId}/trips")]
-    [Route("api/trips")]
+    [Route("api/Trips")]
     [ApiController]
     public class TripController : ControllerBase
     {
@@ -23,6 +23,13 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetAllTripsAsync()
         {
             return Ok(await _tripBL.GetAllTripsAsync());
+        }
+
+        [HttpGet("Activity/{activityId}")]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetAllTripsByActivityIdAsync(int activityId)
+        {
+            return Ok(await _tripBL.GetAllTripsByActivityIdAsync(activityId));
         }
 
         [HttpGet("{id}")]

@@ -49,9 +49,9 @@ namespace BL
             return await _tripRepo.GetTripByIdAsync(id);
         }
 
-        public async Task<Participant> GetParticipantById(int id)
+        public async Task<Participant> GetParticipantByIdAsync(int id)
         {
-            return await _tripRepo.GetParticipantById(id);
+            return await _tripRepo.GetParticipantByIdAsync(id);
         }
         
         public async Task<Participant> UpdateParticipantAsync(Participant participant)
@@ -62,6 +62,11 @@ namespace BL
         public async Task<Trip> UpdateTripAsync(Trip trip)
         {
             return await _tripRepo.UpdateTripAsync(trip);
+        }
+
+        public async Task<List<Trip>> GetAllTripsByActivityIdAsync(int activityId)
+        {
+            return await _tripRepo.GetAllTripsByActivityIdAsync(activityId);
         }
     }
 }

@@ -29,7 +29,6 @@ namespace WebAPI.Controllers
         {
             return Ok(await _activityBL.GetAllActivitisByCreatorAsync(userId));
         }
-
        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActivityByIdAsync(int id)

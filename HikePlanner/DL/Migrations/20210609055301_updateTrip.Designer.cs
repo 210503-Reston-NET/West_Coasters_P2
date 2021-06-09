@@ -148,9 +148,6 @@ namespace DL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TripId")
-                        .IsUnique();
-
                     b.ToTable("Participants");
                 });
 

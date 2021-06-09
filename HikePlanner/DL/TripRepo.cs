@@ -22,9 +22,30 @@ namespace DL
         /// <returns></returns>
         public async Task<List<Trip>> GetAllTripsAsync()
         {
-            return await _context.Trips
+            List<Trip> trips =  await _context.Trips
                 .AsNoTracking()
                 .Select(trip => trip)
+                .ToListAsync();
+            trips.ForEach(t => 
+                    {
+                        t.Checklist = (t.CheckListId != 0 ? _context.Checklists.Find(t.CheckListId) : null);
+                        //t.Participant = (t.Participant != null ? _context.Participants.Find(t.Participant.Id) : null);
+                    } 
+                );
+            return trips;
+        }
+
+        /// <summary>
+        /// Get trip by activity
+        /// </summary>
+        /// <param name="activityId"></param>
+        /// <returns></returns>
+
+        public async Task<List<Trip>> GetAllTripsByActivityIdAsync(int activityId)
+        {
+            return await _context.Trips
+                .AsNoTracking()
+                .Where(obj => obj.ActivityId == activityId)
                 .ToListAsync();
         }
 
@@ -137,7 +158,7 @@ namespace DL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Participant> GetParticipantById(int id)
+        public async Task<Participant> GetParticipantByIdAsync(int id)
         {
             return await _context.Participants
                 .AsNoTracking()

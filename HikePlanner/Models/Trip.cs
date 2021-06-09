@@ -77,7 +77,7 @@ namespace Models
         //This can be empty
         public int CheckListId { get; set; }
 
-        public Participant Participant { get; set; }
+        public List<Participant> Participants { get; set; }
         public Checklist Checklist { get; set; }
         public List<Post> Posts { get; set; }
     }

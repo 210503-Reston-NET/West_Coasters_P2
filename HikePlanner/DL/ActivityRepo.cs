@@ -22,13 +22,14 @@ namespace DL
         /// <returns></returns>
         public async Task<List<Activity>> GetAllActivitisAsync()
         {
-            return await _context.Activities
+            List<Activity> activities = await _context.Activities
                 .AsNoTracking()
                 .Select(activity => activity)
                 .ToListAsync();
+            return activities;
         }
 
-        //ToDo: Get a list of Acvitivies by creator
+        //Get a list of Acvitivies by creator
         public async Task<List<Activity>> GetAllActivitisByCreatorAsync(string creator)
         {
             return await _context.Activities
