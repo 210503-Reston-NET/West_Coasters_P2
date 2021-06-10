@@ -1,16 +1,47 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System;
+
 namespace Models
 {
     public class Checklist
     {
+        private string _name;
+        private int _tripId;
         public Checklist()
-        {}
+        {
+        }
+
         public int Id { get; set; }
-        public string Name { get; set; }
-        //ToDo: decide TripId or GroupId or UserId
-        // vote for TripId since this checklist can be visible to all group memebers (trip participants)
-        public int TripId { get; set; }
-        //public string UserId { get; set; }
-        List<ChecklistItem> ChecklistItems { get; set; }
+        public string Name
+        { 
+            get { return _name; }
+            set
+            {
+                if(value.Length == 0)
+                {
+                    throw new ValidationException("Checklist name cannot be empty");
+                }
+                _name = value;
+            }
+        }
+        // public int TripId 
+        // {
+        //     get { return _tripId; }
+        //     set
+        //     {
+        //         if(value <= 0)
+        //         {
+        //             throw new ValidationException("Checklist TripId cannot be less than or equal to 0");
+        //         }
+        //         _tripId = value;
+        //     }
+        // }
+        //public int TripId { get; set; }
+
+        public DateTime DateCreated { get; set; }
+        public string Creator { get; set; }
+
+        public List<ChecklistItem> ChecklistItems { get; set; }
     }
 }

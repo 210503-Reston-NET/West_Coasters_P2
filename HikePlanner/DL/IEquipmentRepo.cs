@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models;
 
@@ -9,7 +6,10 @@ namespace DL
 {
     public interface IEquipmentRepo
     {
-        public List<Equipment> GetAllEquipments();
-        public Equipment AddEquipment(Equipment equipment);
+        Task<List<Equipment>> GetAllEquipmentsAsync();
+        Task<Equipment> AddEquipmentAsync(Equipment equipment);
+        Task DeleteEquipmentAsync(Equipment equipment);
+        Task<Equipment> UpdateEquipmentAsync(Equipment equipment);
+        Task<Equipment> GetEquipmentByIdAsync(int id);
     }
 }

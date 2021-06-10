@@ -1,19 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BL;
+using DL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
-using BL;
-using DL;
 
 namespace WebAPI
 {
@@ -29,7 +22,6 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -38,6 +30,22 @@ namespace WebAPI
             services.AddDbContext<AppDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HikePlannerDB")));
             services.AddScoped<IEquipmentRepo, EquipmentRepo>();
             services.AddScoped<IEquipmentBL, EquipmentBL>();
+
+            services.AddScoped<IUsersBL, UsersBL>();
+            services.AddScoped<IUsersRepo, UsersRepo>();
+
+            services.AddScoped<IAddressRepo, AddressRepo>();
+            services.AddScoped<IAddressBL, AddressBL>();
+
+            services.AddScoped<ITripRepo, TripRepo>();
+            services.AddScoped<ITripBL, TripBL>();
+            services.AddScoped<IPostRepo, PostRepo>();
+            services.AddScoped<IPostBL, PostBL>();
+            services.AddScoped<IActivityRepo, ActivityRepo>();
+            services.AddScoped<IActivityBL, ActivityBL>(); 
+
+            services.AddScoped<IChecklistBL, ChecklistBL>();
+            services.AddScoped<IChecklistRepo, ChecklistRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,33 +1,29 @@
-using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace Models
 {
-    public class Post
+    public class Participant
     {
         private int _tripId;
         private string _userId;
-        private string _notes;
-        public Post()
+        public Participant()
         { }
 
-        public Post(int tripId, string userId, string Notes)
+        public Participant(int tripId, string userId)
         {
             TripId = tripId;
             UserId = userId;
         }
 
-        public Post(string imageURL, int tripId, string userId, string Notes, DateTime dateCreated) : this(tripId, userId, Notes)
-        {
-            ImageURL = imageURL;
-        }
-
-        public Post(int id, int tripId, string userId, string Notes, DateTime dateCreated) : this(tripId, userId, Notes)
+        public Participant(int id, int tripId, string userId) : this (tripId, userId)
         {
             Id = id;
         }
-
+        
         public int Id { get; set; }
+
         public int TripId 
         {
             get { return _tripId; }
@@ -40,6 +36,7 @@ namespace Models
                 _tripId = value;
             }
         }
+        
         public string UserId 
         {
             get { return _userId; }
@@ -52,20 +49,5 @@ namespace Models
                 _userId = value;
             }
         }
-
-        public string Notes 
-        { 
-            get { return _notes; }
-            set
-            {
-                if(value.Length == 0)
-                {
-                    throw new ValidationException("userId cannot be empty");
-                }
-                _notes = value;
-            }
-        }
-        public string ImageURL { get; set; }
-        public DateTime DateCreated { get; set; }
     }
 }

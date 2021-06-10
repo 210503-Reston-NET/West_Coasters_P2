@@ -1,4 +1,3 @@
-﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
@@ -6,39 +5,68 @@ namespace DL
 {
     public class AppDBContext : DbContext
     {
+        public AppDBContext() : base()
+        { }
+
         public AppDBContext(DbContextOptions options) : base(options)
+        { }
+
+        /// <summary>
+        /// Declaring entities
+        /// </summary>
+        public DbSet<User> Users { get; set; }
+        public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<Address> Address { get; set; }
+        public DbSet<Checklist> Checklists { get; set; }
+        public DbSet<ChecklistItem> ChecklistItems { get; set; }
+        public DbSet<Trip> Trips { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Participant> Participants { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-        }
+            modelBuilder.Entity<User>()
+            .Property(user => user.UserId)
+            .ValueGeneratedOnAdd();
 
-        protected AppDBContext()
-        {
-        }
+            modelBuilder.Entity<Equipment>()
+            .Property(equipment => equipment.Id)
+            .ValueGeneratedOnAdd();
 
-        //public DbSet<Location> Locations { get; set; }
-        //public DbSet<Product> Products { get; set; }
-        //public DbSet<Inventory> Inventories { get; set; }
-        //public DbSet<LineItem> LineItems { get; set; }
-        //public DbSet<Order> Orders { get; set; }
+            modelBuilder.Entity<Checklist>()
+            .Property(checklist => checklist.Id)
+            .ValueGeneratedOnAdd();
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
+            modelBuilder.Entity<ChecklistItem>()
+            .Property(checklistItem => checklistItem.Id)
+            .ValueGeneratedOnAdd();
 
-            //builder.Entity<Location>()
-            //    .Property(location => location.Id)
-            //    .ValueGeneratedOnAdd();
-            //builder.Entity<Product>()
-            //    .Property(product => product.Id)
-            //    .ValueGeneratedOnAdd();
-            //builder.Entity<Inventory>()
-            //    .Property(inventory => inventory.Id)
-            //    .ValueGeneratedOnAdd();
-            //builder.Entity<LineItem>()
-            //    .Property(lineItem => lineItem.Id)
-            //    .ValueGeneratedOnAdd();
-            //builder.Entity<Order>()
-            //    .Property(order => order.Id)
-            //    .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Address>()
+            .Property(address => address.Id)
+            .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Trip>()
+            .Property(trip => trip.Id)
+            .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Activity>()
+            .Property(activity => activity.Id)
+            .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Post>()
+            .Property(post => post.Id)
+            .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Participant>()
+            .Property(participant => participant.Id)
+            .ValueGeneratedOnAdd();
         }
     }
 }
+
+/*
+CLI:
+dotnet ef migrations add testMapping -c AppDBContext --startup-project ../WebAPI
+dotnet ef database update --startup-project ../WebAPI
+*/
