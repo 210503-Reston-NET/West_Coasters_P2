@@ -1,7 +1,13 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System;
+
 namespace Models
 {
     public class Participant
     {
+        private int _tripId;
+        private string _userId;
         public Participant()
         { }
 
@@ -17,7 +23,31 @@ namespace Models
         }
         
         public int Id { get; set; }
-        public int TripId { get; set; }
-        public string UserId { get; set; }
+
+        public int TripId 
+        {
+            get { return _tripId; }
+            set
+            {
+                if(value <= 0)
+                {
+                    throw new ValidationException("TripId cannot be less than or equal to 0");
+                }
+                _tripId = value;
+            }
+        }
+        
+        public string UserId 
+        {
+            get { return _userId; }
+            set
+            {
+                if(value.Length == 0)
+                {
+                    throw new ValidationException("userId cannot be empty");
+                }
+                _userId = value;
+            }
+        }
     }
 }

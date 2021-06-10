@@ -11,55 +11,59 @@ namespace DL
     public class UsersRepo : IUsersRepo
     {
         private readonly AppDBContext _context;
-        public UsersRepo(AppDBContext context)
+        public UsersRepo(AppDBContext context, IAddressRepo addressRepo)
         {
             _context = context;
+            
         }
         /// <summary>
         /// get all users method
         /// </summary>
         /// <returns></returns>
-        public List<User> GetAllUsers()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            List<User> users = _context.Users
+            List<User> users = await _context.Users
                 .AsNoTracking()
-                .ToList();
+                //.Include(u => u.Address)
+                .ToListAsync();
+            users.ForEach(u => u.Address = (u.AddressId != 0 ? _context.Address.Find(u.AddressId) : null));
             return users;
         }
+
         /// <summary>
         /// Add user method with the auto generated Guid unique string
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public User AddUser(User user)
+        public async Task<User> AddUserAsync(User user)
         {
-           User AddedUser =  _context.Users.Add(user).Entity;
-            _context.SaveChanges();
+            User AddedUser =  _context.Users.Add(user).Entity;
+            await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
             return AddedUser;
         }
 
-        public User GetUserById(string id)
+        public async Task<User> GetUserByIdAsync(string id)
         {
-            User UserFound = _context.Users.FirstOrDefault(user=> user.UserId == id);
+            User UserFound = await _context.Users.FirstOrDefaultAsync(user=> user.UserId == id);
+            UserFound.Address = (UserFound.AddressId != 0 ? _context.Address.Find(UserFound.AddressId) : null);
             if (UserFound == null) return null;
             return UserFound;
         }
-        public User DeleteUser(User user)
+        public async Task<User> DeleteUserAsync(User user)
         {
-            User userToBeDeleted = _context.Users.FirstOrDefault(us=> us.UserId == user.UserId);
+            User userToBeDeleted = _context.Users.First(us=> us.UserId == user.UserId);
             _context.Remove(userToBeDeleted);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
-           return user;
+            return user;
         }
-        public User UpdateUser(User userToUpdate)
+        public async Task<User> UpdateUserAsync(User userToUpdate)
         {
-            _context.Users
-                .Update(userToUpdate);
-            _context.SaveChanges();
+            User updated = _context.Users.Update(userToUpdate).Entity;
+            await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
-            return userToUpdate;
+            return updated;
         }
     }
 }

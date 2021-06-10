@@ -20,6 +20,10 @@ namespace BL
         Task<Participant> UpdateParticipantAsync(Participant participant);
         Task DeleteParticipantAsync(Participant participant);
         Task<List<Participant>> GetAllParticipantsByTripIdAsync(int tripId);
-        Task<Participant> GetParticipantById(int id);
+        Task<Participant> GetParticipantByIdAsync(int id);
+        Task<List<Trip>> GetAllTripsByActivityIdAsync(int activityId);
+        Task<List<Trip>> GetAllTripsByCreatorAsync(string Creator);
+        Task<List<Trip>> GetAllTripsByParticipantAsync(string userId);
+
     }
 }

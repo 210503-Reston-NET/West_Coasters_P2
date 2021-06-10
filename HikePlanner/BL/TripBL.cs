@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DL;
 using Models;
+using System.Linq;
 
 namespace BL
 {
@@ -49,9 +50,9 @@ namespace BL
             return await _tripRepo.GetTripByIdAsync(id);
         }
 
-        public async Task<Participant> GetParticipantById(int id)
+        public async Task<Participant> GetParticipantByIdAsync(int id)
         {
-            return await _tripRepo.GetParticipantById(id);
+            return await _tripRepo.GetParticipantByIdAsync(id);
         }
         
         public async Task<Participant> UpdateParticipantAsync(Participant participant)
@@ -62,6 +63,35 @@ namespace BL
         public async Task<Trip> UpdateTripAsync(Trip trip)
         {
             return await _tripRepo.UpdateTripAsync(trip);
+        }
+
+        public async Task<List<Trip>> GetAllTripsByActivityIdAsync(int activityId)
+        {
+            List<Trip> trips = await _tripRepo.GetAllTripsAsync();
+            trips.Where(t => t.ActivityId == activityId);
+            return trips;
+        }
+
+        public async Task<List<Trip>> GetAllTripsByCreatorAsync(string Creator)
+        {
+            List<Trip> trips = await _tripRepo.GetAllTripsAsync();
+            trips.Where(t => t.Creator == Creator);
+            return trips;
+        }
+
+        public async Task<List<Trip>> GetAllTripsByParticipantAsync(string userId)
+        {
+            List<Trip> trips = await _tripRepo.GetAllTripsAsync();
+            List<Trip> result = new List<Trip>();
+            foreach (Trip t in trips)
+            {
+                List<Participant> participants = await GetAllParticipantsByTripIdAsync(t.Id);
+                foreach (Participant p in participants)
+                {
+                    if (p.UserId == userId) result.Add(t);
+                }
+            }
+            return result;
         }
     }
 }

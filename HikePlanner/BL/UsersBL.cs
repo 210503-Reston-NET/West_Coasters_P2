@@ -9,34 +9,37 @@ namespace BL
 {
     public class UsersBL : IUsersBL
     {
-        private readonly IUsersRepo _userrepo;
+        private readonly IUsersRepo _userRepo;
+
         public UsersBL(IUsersRepo usersRepo)
         {
-            _userrepo = usersRepo;
+            _userRepo = usersRepo;
+           // _actRepo = actRepo;
         }
-        public User AddUser(User user)
+        public async Task<User> AddUserAsync(User user)
         {
-            return _userrepo.AddUser(user);
-        }
-
-        public User DeleteUser(User user)
-        {
-            return _userrepo.DeleteUser(user);
+            return await _userRepo.AddUserAsync(user);
         }
 
-        public List<User> GetAllUsers()
+        public async Task<User> DeleteUserAsync(User user)
         {
-            return _userrepo.GetAllUsers();
+            return await _userRepo.DeleteUserAsync(user);
         }
 
-        public User GetUserById(string id)
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            return _userrepo.GetUserById(id);
+            List<User> users = await _userRepo.GetAllUsersAsync();
+            return users;
+        } 
+
+        public async Task<User> GetUserByIdAsync(string id)
+        {
+            return await _userRepo.GetUserByIdAsync(id);
         }
 
-        public User UpdateUser(User userToUpdate)
+        public async Task<User> UpdateUserAsync(User userToUpdate)
         {
-            return _userrepo.UpdateUser(userToUpdate);
+            return await _userRepo.UpdateUserAsync(userToUpdate);
         }
     }
 }

@@ -22,14 +22,22 @@ namespace DL
         /// <returns></returns>
         public async Task<List<Activity>> GetAllActivitisAsync()
         {
-            return await _context.Activities
+            List<Activity> activities = await _context.Activities
                 .AsNoTracking()
-                .Select(activity => activity)
+                .Include(a => a.Trips)
                 .ToListAsync();
+            
+            activities.ForEach(
+                a => a.Trips.ForEach(t => 
+                    {
+                        t.Participants = _context.Participants.Where(p => p.TripId == t.Id).ToList();
+                        t.Posts = _context.Posts.Where(p => p.TripId == t.Id).ToList();
+                        t.Checklist = _context.Checklists.Find(t.ChecklistId);
+                    } 
+                )
+            );
+            return activities;
         }
-
-        //ToDo: Get a list of Acvitivies by creator
-
 
         /// <summary>
         /// Get Activity object by id
@@ -76,7 +84,7 @@ namespace DL
         /// <returns></returns>
         public async Task DeleteActivityAsync(Activity Activity)
         {
-            Activity toBeDeleted = _context.Activities.AsNoTracking().First(obj => obj.Id == Activity.Id);
+            Activity toBeDeleted = _context.Activities.First(obj => obj.Id == Activity.Id);
             _context.Activities.Remove(toBeDeleted);
             await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();

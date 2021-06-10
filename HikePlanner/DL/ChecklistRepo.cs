@@ -20,10 +20,10 @@ namespace DL
         /// </summary>
         /// <param name="checklist">the checklist obj to be added</param>
         /// <returns>checklist obj that has been created</returns>
-        public Checklist CreateNewChecklist(Checklist checklist)
+        public async Task<Checklist> CreateNewChecklistAsync(Checklist checklist)
         {
             Checklist added = _context.Checklists.Add(checklist).Entity;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
 
             return added;
@@ -33,10 +33,10 @@ namespace DL
         /// </summary>
         /// <param name="item">checklistItem to be added</param>
         /// <returns>created checklistItem</returns>
-        public ChecklistItem CreateNewChecklistItem(ChecklistItem item)
+        public async Task<ChecklistItem> CreateNewChecklistItemAsync(ChecklistItem item)
         {
             ChecklistItem added = _context.ChecklistItems.Add(item).Entity;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
 
             return added;
@@ -51,12 +51,12 @@ namespace DL
         /// </summary>
         /// <param name="id">Id of the checklist to be deleted</param>
         /// <returns>Boolean, true for operation successful, false for something went wrong</returns>
-        public bool DeleteChecklist(int id)
+        public async Task<bool> DeleteChecklistAsync(int id)
         {
             Checklist toDelete = new();
             toDelete.Id = id;
             bool successful = _context.Checklists.Remove(toDelete).State.ToString() == "Deleted" ? true : false;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
             return successful;
         }
@@ -68,12 +68,12 @@ namespace DL
         /// If it's anything else, return false
         /// </summary>
         /// <param name="id">The id fo the checklist item to be deleted</param>
-        public bool DeleteChecklistItem(int id)
+        public async Task<bool> DeleteChecklistItemAsync(int id)
         {
             ChecklistItem toDelete = new();
             toDelete.Id = id;
             bool successful = _context.ChecklistItems.Remove(toDelete).State.ToString() == "Deleted" ? true : false;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
             return successful;
         }
@@ -82,51 +82,51 @@ namespace DL
         /// Get all checklists in db
         /// </summary>
         /// <returns>List of all checklists</returns>
-        public List<Checklist> GetAllChecklists()
+        public async Task<List<Checklist>> GetAllChecklistsAsync()
         {
-            return _context.Checklists
+            return await _context.Checklists
                 .AsNoTracking()
                 .Include(i => i.ChecklistItems)
                 .ThenInclude(i => i.Equipment)
-                .ToList();
+                .ToListAsync();
         }
         /// <summary>
         /// Finds the first checklist with the given id
         /// </summary>
         /// <param name="id">checklist id to be searched for</param>
         /// <returns>If found, found checklist, null if not found</returns>
-        public Checklist GetChecklistById(int id)
+        public async Task<Checklist> GetChecklistByIdAsync(int id)
         {
-            return _context.Checklists
+            return await _context.Checklists
                 .AsNoTracking()
                 .Include(i => i.ChecklistItems)
                 .ThenInclude(i => i.Equipment)
-                .FirstOrDefault(list => list.Id == id);
+                .FirstOrDefaultAsync(list => list.Id == id);
         }
         /// <summary>
         /// Fetch the first checklistItem that matches the id param
         /// </summary>
         /// <param name="itemId">ChecklsitItem id</param>
         /// <returns>Found ChecklistItem. If none is found, null</returns>
-        public ChecklistItem GetChecklistItemById(int itemId)
+        public async Task<ChecklistItem> GetChecklistItemByIdAsync(int itemId)
         {
-            return _context.ChecklistItems
+            return await _context.ChecklistItems
                 .AsNoTracking()
                 .Include("Equipment")
-                .FirstOrDefault(item => item.Id == itemId);
+                .FirstOrDefaultAsync(item => item.Id == itemId);
         }
         /// <summary>
         /// Gets all checklistItems associated to the checklist Id.
         /// </summary>
         /// <param name="checklistId">Checklist Id</param>
         /// <returns>List of checklist items associated to the checklist id</returns>
-        public List<ChecklistItem> GetChecklistItemsByChecklistId(int checklistId)
+        public async Task<List<ChecklistItem>> GetChecklistItemsByChecklistIdAsync(int checklistId)
         {
-            return _context.ChecklistItems
+            return await _context.ChecklistItems
                 .AsNoTracking()
                 .Where(item => item.ChecklistId == checklistId)
                 .Include("Equipment")
-                .ToList();
+                .ToListAsync();
         }
 
         /// <summary>
@@ -134,18 +134,18 @@ namespace DL
         /// </summary>
         /// <param name="checklist">the checklist to be updated (with the updated info)</param>
         /// <returns>updated checklist</returns>
-        public Checklist UpdateChecklist(Checklist checklist)
+        public async Task<Checklist> UpdateChecklistAsync(Checklist checklist)
         {
             Checklist updated = _context.Checklists.Update(checklist).Entity;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
             return updated;
         }
 
-        public ChecklistItem UpdateChecklistItem(ChecklistItem item)
+        public async Task<ChecklistItem> UpdateChecklistItemAsync(ChecklistItem item)
         {
             ChecklistItem updated = _context.ChecklistItems.Update(item).Entity;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             _context.ChangeTracker.Clear();
             return updated;
         }

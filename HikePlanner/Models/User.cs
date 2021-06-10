@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 namespace Models
 {
     public class User
@@ -35,5 +36,6 @@ namespace Models
         public string Password { get; set; }
         public string Phone { get; set; }
         public int AddressId { get; set; }
+        public Address Address { get; set; }
     }
 }

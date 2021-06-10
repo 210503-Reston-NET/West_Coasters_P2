@@ -26,8 +26,8 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("ActivityId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Creator")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -42,8 +42,6 @@ namespace DL.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ActivityId");
 
                     b.ToTable("Activities");
                 });
@@ -79,11 +77,14 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Creator")
                         .HasColumnType("text");
 
-                    b.Property<int>("TripId")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -148,8 +149,7 @@ namespace DL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TripId")
-                        .IsUnique();
+                    b.HasIndex("TripId");
 
                     b.ToTable("Participants");
                 });
@@ -160,6 +160,12 @@ namespace DL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("text");
 
                     b.Property<string>("Notes")
                         .HasColumnType("text");
@@ -187,10 +193,7 @@ namespace DL.Migrations
                     b.Property<int>("ActivityId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CheckListId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ChecklistId")
+                    b.Property<int>("ChecklistId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Creator")
@@ -205,10 +208,9 @@ namespace DL.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("timestamp without time zone");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
 
                     b.HasIndex("ChecklistId");
 
@@ -238,53 +240,10 @@ namespace DL.Migrations
 
                     b.HasKey("UserId");
 
+                    b.HasIndex("AddressId");
+
                     b.ToTable("Users");
                 });
-
-            modelBuilder.Entity("Models.Activity", b =>
-                {
-                    b.HasOne("Models.Activity", null)
-                        .WithMany("Activities")
-                        .HasForeignKey("ActivityId");
-                });
-
-            modelBuilder.Entity("Models.Participant", b =>
-                {
-                    b.HasOne("Models.Trip", null)
-                        .WithOne("Participant")
-                        .HasForeignKey("Models.Participant", "TripId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Models.Post", b =>
-                {
-                    b.HasOne("Models.Trip", null)
-                        .WithMany("Posts")
-                        .HasForeignKey("TripId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Models.Trip", b =>
-                {
-                    b.HasOne("Models.Checklist", "Checklist")
-                        .WithMany()
-                        .HasForeignKey("ChecklistId");
-
-                    b.Navigation("Checklist");
-                });
-
-            modelBuilder.Entity("Models.Activity", b =>
-                {
-                    b.Navigation("Activities");
-                });
-
-            modelBuilder.Entity("Models.Trip", b =>
-                {
-                    b.Navigation("Participant");
-
-                    b.Navigation("Posts");
 
             modelBuilder.Entity("Models.ChecklistItem", b =>
                 {
@@ -303,9 +262,67 @@ namespace DL.Migrations
                     b.Navigation("Equipment");
                 });
 
+            modelBuilder.Entity("Models.Participant", b =>
+                {
+                    b.HasOne("Models.Trip", null)
+                        .WithMany("Participants")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Models.Post", b =>
+                {
+                    b.HasOne("Models.Trip", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Models.Trip", b =>
+                {
+                    b.HasOne("Models.Activity", null)
+                        .WithMany("Trips")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Checklist", "Checklist")
+                        .WithMany()
+                        .HasForeignKey("ChecklistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Checklist");
+                });
+
+            modelBuilder.Entity("Models.User", b =>
+                {
+                    b.HasOne("Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Models.Activity", b =>
+                {
+                    b.Navigation("Trips");
+                });
+
             modelBuilder.Entity("Models.Checklist", b =>
                 {
                     b.Navigation("ChecklistItems");
+                });
+
+            modelBuilder.Entity("Models.Trip", b =>
+                {
+                    b.Navigation("Participants");
+
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

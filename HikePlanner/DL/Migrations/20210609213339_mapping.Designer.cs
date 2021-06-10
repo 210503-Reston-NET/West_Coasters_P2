@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DL.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20210608064219_updateTrip")]
-    partial class updateTrip
+    [Migration("20210609213339_mapping")]
+    partial class mapping
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +28,8 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("ActivityId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Creator")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -44,8 +44,6 @@ namespace DL.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ActivityId");
 
                     b.ToTable("Activities");
                 });
@@ -81,11 +79,14 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Creator")
                         .HasColumnType("text");
 
-                    b.Property<int>("TripId")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -109,6 +110,10 @@ namespace DL.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChecklistId");
+
+                    b.HasIndex("EquipmentId");
 
                     b.ToTable("ChecklistItems");
                 });
@@ -146,8 +151,7 @@ namespace DL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TripId")
-                        .IsUnique();
+                    b.HasIndex("TripId");
 
                     b.ToTable("Participants");
                 });
@@ -158,6 +162,12 @@ namespace DL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("text");
 
                     b.Property<string>("Notes")
                         .HasColumnType("text");
@@ -185,10 +195,7 @@ namespace DL.Migrations
                     b.Property<int>("ActivityId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CheckListId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ChecklistId")
+                    b.Property<int>("ChecklistId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Creator")
@@ -203,10 +210,9 @@ namespace DL.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("timestamp without time zone");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
 
                     b.HasIndex("ChecklistId");
 
@@ -236,21 +242,33 @@ namespace DL.Migrations
 
                     b.HasKey("UserId");
 
+                    b.HasIndex("AddressId");
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Models.Activity", b =>
+            modelBuilder.Entity("Models.ChecklistItem", b =>
                 {
-                    b.HasOne("Models.Activity", null)
-                        .WithMany("Activities")
-                        .HasForeignKey("ActivityId");
+                    b.HasOne("Models.Checklist", null)
+                        .WithMany("ChecklistItems")
+                        .HasForeignKey("ChecklistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Equipment", "Equipment")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Equipment");
                 });
 
             modelBuilder.Entity("Models.Participant", b =>
                 {
                     b.HasOne("Models.Trip", null)
-                        .WithOne("Participant")
-                        .HasForeignKey("Models.Participant", "TripId")
+                        .WithMany("Participants")
+                        .HasForeignKey("TripId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -266,21 +284,45 @@ namespace DL.Migrations
 
             modelBuilder.Entity("Models.Trip", b =>
                 {
+                    b.HasOne("Models.Activity", null)
+                        .WithMany("Trips")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Models.Checklist", "Checklist")
                         .WithMany()
-                        .HasForeignKey("ChecklistId");
+                        .HasForeignKey("ChecklistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Checklist");
                 });
 
+            modelBuilder.Entity("Models.User", b =>
+                {
+                    b.HasOne("Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("Models.Activity", b =>
                 {
-                    b.Navigation("Activities");
+                    b.Navigation("Trips");
+                });
+
+            modelBuilder.Entity("Models.Checklist", b =>
+                {
+                    b.Navigation("ChecklistItems");
                 });
 
             modelBuilder.Entity("Models.Trip", b =>
                 {
-                    b.Navigation("Participant");
+                    b.Navigation("Participants");
 
                     b.Navigation("Posts");
                 });

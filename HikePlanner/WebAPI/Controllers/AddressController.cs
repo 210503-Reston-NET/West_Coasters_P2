@@ -10,20 +10,20 @@ using Models;
 // https://localhost:5001/api/Equipments
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Address")]
     [ApiController]
     public class AddressController : ControllerBase
     {
-        private readonly IAddressBL _iAddressBL;
+        private readonly IAddressBL _addressBL;
         public AddressController(IAddressBL addressBL)
         {
-            _iAddressBL = addressBL;
+            _addressBL = addressBL;
         }
         // GET api/<AddressController>/5
         [HttpGet("{id}")]
-        public IActionResult GetAddressById(int id)
+        public async Task<IActionResult> GetAddressByIdAsync(int id)
         {
-            return Ok(_iAddressBL.GetAddressById(id));
+            return Ok(await _addressBL.GetAddressByIdAsync(id));
         }
         /// <summary>
         /// this Method is adding address of a user against userId
@@ -33,9 +33,9 @@ namespace WebAPI.Controllers
         /// <returns></returns> returns the created address
         // POST api/<AddressController>
         [HttpPost]
-        public IActionResult AddAddress(string id, [FromBody] Address adressToAdd)
+        public async Task<IActionResult> AddAddressAsync(string userId, [FromBody] Address adressToAdd)
         {
-            return Created("api/Address", _iAddressBL.AddAddress(id, adressToAdd));
+            return Created("api/Users/{userId}/Address",await _addressBL.AddAddressAsync(userId, adressToAdd));
         }
 
         /// <summary>
@@ -48,9 +48,9 @@ namespace WebAPI.Controllers
 
         // PUT api/<AddressController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Address addressToUpdate)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] Address addressToUpdate)
         {
-            _iAddressBL.UpdateAddress(addressToUpdate);
+            await _addressBL.UpdateAddressAysncAsync(addressToUpdate);
             return NoContent();
         }
 
@@ -62,9 +62,9 @@ namespace WebAPI.Controllers
         /// <returns></returns>
         // DELETE api/<AddressController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            _iAddressBL.DeleteAddress(_iAddressBL.GetAddressById(id));
+            await _addressBL.DeleteAddressAsync(await _addressBL.GetAddressByIdAsync(id));
             return NoContent();
         }
     }

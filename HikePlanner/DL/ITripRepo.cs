@@ -20,6 +20,6 @@ namespace DL
         Task<Participant> UpdateParticipantAsync(Participant participant);
         Task DeleteParticipantAsync(Participant participant);
         Task<List<Participant>> GetAllParticipantsByTripIdAsync(int tripId);
-        Task<Participant> GetParticipantById(int id);
+        Task<Participant> GetParticipantByIdAsync(int id);
     }
 }

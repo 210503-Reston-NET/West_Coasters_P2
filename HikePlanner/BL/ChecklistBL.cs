@@ -15,54 +15,54 @@ namespace BL
         {
             _repo = repo;
         }
-        public Checklist CreateNewChecklist(Checklist checklist)
+        public async Task<Checklist> CreateNewChecklistAsync(Checklist checklist)
         {
-            return _repo.CreateNewChecklist(checklist);
+            return await _repo.CreateNewChecklistAsync(checklist);
         }
 
-        public ChecklistItem CreateNewChecklistItem(ChecklistItem item)
+        public async Task<ChecklistItem> CreateNewChecklistItemAsync(ChecklistItem item)
         {
-            return _repo.CreateNewChecklistItem(item);
+            return await _repo.CreateNewChecklistItemAsync(item);
         }
 
-        public bool DeleteChecklist(int id)
+        public async Task<bool> DeleteChecklistAsync(int id)
         {
-            return _repo.DeleteChecklist(id);
+            return await _repo.DeleteChecklistAsync(id);
         }
 
-        public bool DeleteChecklistItem(int id)
+        public async Task<bool> DeleteChecklistItemAsync(int id)
         {
-            return _repo.DeleteChecklistItem(id);
+            return await _repo.DeleteChecklistItemAsync(id);
         }
 
-        public List<Checklist> GetAllChecklists()
+        public async Task<List<Checklist>> GetAllChecklistsAsync()
         {
-            return _repo.GetAllChecklists();
+            return await _repo.GetAllChecklistsAsync();
         }
 
-        public Checklist GetChecklistById(int id)
+        public async Task<Checklist> GetChecklistByIdAsync(int id)
         {
-            return _repo.GetChecklistById(id);
+            return await _repo.GetChecklistByIdAsync(id);
         }
 
-        public ChecklistItem GetChecklistItemById(int itemId)
+        public async Task<ChecklistItem> GetChecklistItemByIdAsync(int itemId)
         {
-            return _repo.GetChecklistItemById(itemId);
+            return await _repo.GetChecklistItemByIdAsync(itemId);
         }
 
-        public List<ChecklistItem> GetChecklistItemsByChecklistId(int checklistId)
+        public async Task<List<ChecklistItem>> GetChecklistItemsByChecklistIdAsync(int checklistId)
         {
-            return _repo.GetChecklistItemsByChecklistId(checklistId);
+            return await _repo.GetChecklistItemsByChecklistIdAsync(checklistId);
         }
 
-        public Checklist UpdateChecklist(Checklist checklist)
+        public async Task<Checklist> UpdateChecklistAsync(Checklist checklist)
         {
-            return _repo.UpdateChecklist(checklist);
+            return await _repo.UpdateChecklistAsync(checklist);
         }
 
-        public ChecklistItem UpdateChecklistItem(ChecklistItem item)
+        public async Task<ChecklistItem> UpdateChecklistItemAsync(ChecklistItem item)
         {
-            return _repo.UpdateChecklistItem(item);
+            return await _repo.UpdateChecklistItemAsync(item);
         }
     }
 }

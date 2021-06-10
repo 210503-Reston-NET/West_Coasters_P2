@@ -22,10 +22,13 @@ namespace DL
         /// <returns></returns>
         public async Task<List<Trip>> GetAllTripsAsync()
         {
-            return await _context.Trips
-                .AsNoTracking()
-                .Select(trip => trip)
+            List<Trip> trips =  await _context.Trips
+                .AsNoTracking()                
+                .Include(t => t.Participants)
+                .Include(t => t.Posts)
+                .Include(t => t.Checklist)
                 .ToListAsync();
+            return trips;
         }
 
         /// <summary>
@@ -137,16 +140,12 @@ namespace DL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Participant> GetParticipantById(int id)
+        public async Task<Participant> GetParticipantByIdAsync(int id)
         {
             return await _context.Participants
                 .AsNoTracking()
                 .FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
-
-        //To do - a list of posts
-        //To do - get all trips by creator
-        //To do - get all trips by ActivityId
     }
 }

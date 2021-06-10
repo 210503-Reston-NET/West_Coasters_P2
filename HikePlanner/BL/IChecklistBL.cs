@@ -9,15 +9,15 @@ namespace BL
 {
     public interface IChecklistBL
     {
-        public List<Checklist> GetAllChecklists();
-        public Checklist GetChecklistById(int id);
-        public Checklist CreateNewChecklist(Checklist checklist);
-        public Checklist UpdateChecklist(Checklist checklist);
-        public bool DeleteChecklist(int id);
-        public List<ChecklistItem> GetChecklistItemsByChecklistId(int checklistId);
-        public ChecklistItem GetChecklistItemById(int itemId);
-        public ChecklistItem CreateNewChecklistItem(ChecklistItem item);
-        public ChecklistItem UpdateChecklistItem(ChecklistItem item);
-        public bool DeleteChecklistItem(int id);
+        Task<List<Checklist>> GetAllChecklistsAsync();
+        Task<Checklist> GetChecklistByIdAsync(int id);
+        Task<Checklist> CreateNewChecklistAsync(Checklist checklist);
+        Task<Checklist> UpdateChecklistAsync(Checklist checklist);
+        Task<bool> DeleteChecklistAsync(int id);
+        Task<List<ChecklistItem>> GetChecklistItemsByChecklistIdAsync(int checklistId);
+        Task<ChecklistItem> GetChecklistItemByIdAsync(int itemId);
+        Task<ChecklistItem>  CreateNewChecklistItemAsync(ChecklistItem item);
+        Task<ChecklistItem>  UpdateChecklistItemAsync(ChecklistItem item);
+        Task<bool> DeleteChecklistItemAsync(int id);
     }
 }

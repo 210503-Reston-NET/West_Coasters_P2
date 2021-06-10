@@ -14,14 +14,14 @@ namespace Tests
             Assert.Throws<ValidationException>(() => test.Name = "");
         }
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-2)]
-        public void ChecklistTripIdShouldNotBeLessThanZero(int input)
-        {
-            Checklist test = new Checklist();
-            Assert.Throws<ValidationException>(() => test.TripId = input);
-        }
+        // [Theory]
+        // [InlineData(0)]
+        // [InlineData(-2)]
+        // public void ChecklistTripIdShouldNotBeLessThanZero(int input)
+        // {
+        //     Checklist test = new Checklist();
+        //     Assert.Throws<ValidationException>(() => test.TripId = input);
+        // }
 
         [Fact]
         public void ChecklistShouldSetName()
@@ -31,13 +31,13 @@ namespace Tests
             Assert.Equal("name", test.Name);
         }
 
-        [Fact]
-        public void ChecklistShouldSetValidTripId()
-        {
-            Checklist test = new Checklist();
-            test.TripId = 123;
-            Assert.Equal(123, test.TripId);
-        }
+        // [Fact]
+        // public void ChecklistShouldSetValidTripId()
+        // {
+        //     Checklist test = new Checklist();
+        //     test.TripId = 123;
+        //     Assert.Equal(123, test.TripId);
+        // }
 
         [Fact]
         public void ChecklistShouldSetValidId()

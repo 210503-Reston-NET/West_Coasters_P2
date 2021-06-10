@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DL;
 using Models;
+using System.Threading.Tasks;
 
 namespace BL
 {
@@ -13,29 +14,30 @@ namespace BL
             _repo = repo;
         }
 
-        public Equipment AddEquipment(Equipment equipment)
+        public async Task<Equipment> AddEquipmentAsync(Equipment equipment)
         {
-            return _repo.AddEquipment(equipment);
+            return await _repo.AddEquipmentAsync(equipment);
         }
 
-        public List<Equipment> GetAllEquipments()
+        public async Task<List<Equipment>> GetAllEquipmentsAsync()
         {
-            return _repo.GetAllEquipments();
+            return await _repo.GetAllEquipmentsAsync();
         }
         
-        public Equipment GetEquipmentById(int id)
+        public async Task<Equipment> GetEquipmentByIdAsync(int id)
         {
-            return _repo.GetEquipmentById(id);
+            return await _repo.GetEquipmentByIdAsync(id);
         }
 
-        public void DeleteEquipment(Equipment equipment)
+        public async Task DeleteEquipmentAsync(Equipment equipment)
         {
-            _repo.DeleteEquipment(equipment);
+            await _repo.DeleteEquipmentAsync(equipment);
         }
 
-        public Equipment UpdateEquipment(Equipment equipment)
+        public async Task<Equipment> UpdateEquipmentAsync(Equipment equipment)
         {
-            return _repo.UpdateEquipment(equipment);
+            return await _repo.UpdateEquipmentAsync(equipment);
         }
+
     }
 }

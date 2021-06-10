@@ -9,9 +9,9 @@ namespace DL
 {
     public interface IAddressRepo
     {
-        public Address AddAddress(string id, Address adressToAdd);
-        public Address GetAddressById(int id);
-        public Address UpdateAddress(Address newAddress);
-        public Address DeleteAddress(Address address);
+    Task<Address> AddAddressAsync(string userId, Address adressToAdd);
+    Task<Address> GetAddressByIdAsync(int id);
+    Task<Address> UpdateAddressAysncAsync(Address newAddress);
+    Task DeleteAddressAsync(Address address);
     }
 }
