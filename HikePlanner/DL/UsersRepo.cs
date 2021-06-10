@@ -24,6 +24,7 @@ namespace DL
         {
             List<User> users = await _context.Users
                 .AsNoTracking()
+                //.Include(u => u.Address)
                 .ToListAsync();
             users.ForEach(u => u.Address = (u.AddressId != 0 ? _context.Address.Find(u.AddressId) : null));
             return users;

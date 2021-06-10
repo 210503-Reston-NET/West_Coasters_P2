@@ -37,10 +37,10 @@ namespace Models
         //         _tripId = value;
         //     }
         // }
-        public int TripId { get; set; }
+        //public int TripId { get; set; }
 
-        //public DateTime DateCreated { get; set; }
-        //public string Creator { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Creator { get; set; }
 
         public List<ChecklistItem> ChecklistItems { get; set; }
     }

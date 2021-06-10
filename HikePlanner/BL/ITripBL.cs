@@ -22,5 +22,8 @@ namespace BL
         Task<List<Participant>> GetAllParticipantsByTripIdAsync(int tripId);
         Task<Participant> GetParticipantByIdAsync(int id);
         Task<List<Trip>> GetAllTripsByActivityIdAsync(int activityId);
+        Task<List<Trip>> GetAllTripsByCreatorAsync(string Creator);
+        Task<List<Trip>> GetAllTripsByParticipantAsync(string userId);
+
     }
 }

@@ -24,18 +24,19 @@ namespace DL
         {
             List<Activity> activities = await _context.Activities
                 .AsNoTracking()
-                .Select(activity => activity)
+                .Include(a => a.Trips)
                 .ToListAsync();
+            
+            activities.ForEach(
+                a => a.Trips.ForEach(t => 
+                    {
+                        t.Participants = _context.Participants.Where(p => p.TripId == t.Id).ToList();
+                        t.Posts = _context.Posts.Where(p => p.TripId == t.Id).ToList();
+                        t.Checklist = _context.Checklists.Find(t.ChecklistId);
+                    } 
+                )
+            );
             return activities;
-        }
-
-        //Get a list of Acvitivies by creator
-        public async Task<List<Activity>> GetAllActivitisByCreatorAsync(string creator)
-        {
-            return await _context.Activities
-                .AsNoTracking()
-                .Where(obj => obj.Creator == creator)
-                .ToListAsync();
         }
 
         /// <summary>

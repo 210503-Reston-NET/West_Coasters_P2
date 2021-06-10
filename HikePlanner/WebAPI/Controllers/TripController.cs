@@ -32,6 +32,20 @@ namespace WebAPI.Controllers
             return Ok(await _tripBL.GetAllTripsByActivityIdAsync(activityId));
         }
 
+        [HttpGet("Creator/{userId}")]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetAllTripsByCreatorAsync(string userId)
+        {
+            return Ok(await _tripBL.GetAllTripsByCreatorAsync(userId));
+        }
+
+        [HttpGet("Shared/{userId}")]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetAllTripsByParticipantAsync(string userId)
+        {
+            return Ok(await _tripBL.GetAllTripsByParticipantAsync(userId));
+        }
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTripByIdAsync(int id)
         {

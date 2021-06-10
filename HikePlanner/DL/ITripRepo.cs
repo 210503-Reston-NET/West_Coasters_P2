@@ -21,6 +21,5 @@ namespace DL
         Task DeleteParticipantAsync(Participant participant);
         Task<List<Participant>> GetAllParticipantsByTripIdAsync(int tripId);
         Task<Participant> GetParticipantByIdAsync(int id);
-        Task<List<Trip>> GetAllTripsByActivityIdAsync(int activityId);
     }
 }

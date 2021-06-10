@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DL.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20210609055301_updateTrip")]
-    partial class updateTrip
+    [Migration("20210609213339_mapping")]
+    partial class mapping
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,11 +79,14 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Creator")
                         .HasColumnType("text");
 
-                    b.Property<int>("TripId")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -148,6 +151,8 @@ namespace DL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TripId");
+
                     b.ToTable("Participants");
                 });
 
@@ -190,10 +195,7 @@ namespace DL.Migrations
                     b.Property<int>("ActivityId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CheckListId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ChecklistId")
+                    b.Property<int>("ChecklistId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Creator")
@@ -265,8 +267,8 @@ namespace DL.Migrations
             modelBuilder.Entity("Models.Participant", b =>
                 {
                     b.HasOne("Models.Trip", null)
-                        .WithOne("Participant")
-                        .HasForeignKey("Models.Participant", "TripId")
+                        .WithMany("Participants")
+                        .HasForeignKey("TripId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -290,7 +292,9 @@ namespace DL.Migrations
 
                     b.HasOne("Models.Checklist", "Checklist")
                         .WithMany()
-                        .HasForeignKey("ChecklistId");
+                        .HasForeignKey("ChecklistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Checklist");
                 });
@@ -318,7 +322,7 @@ namespace DL.Migrations
 
             modelBuilder.Entity("Models.Trip", b =>
                 {
-                    b.Navigation("Participant");
+                    b.Navigation("Participants");
 
                     b.Navigation("Posts");
                 });

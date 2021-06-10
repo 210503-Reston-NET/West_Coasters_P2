@@ -25,6 +25,16 @@ namespace Models
             Creator = creator;
         }
 
+        public Trip(Trip t)
+        {
+            Id = t.Id;
+            ActivityId = t.ActivityId;
+            StartDate = t.StartDate;
+            EndDate = t.EndDate;
+            Distance = t.Distance;
+            Creator = t.Creator;
+        }
+
         public Trip(int id, int activityId, DateTime startDate, DateTime endDate, int distance, string creator) : this (activityId, startDate, endDate, distance, creator)
         {
             Id = id;
@@ -32,7 +42,7 @@ namespace Models
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public DateTime StartTime { get; set; }
+        //public DateTime StartTime { get; set; }
 
         public int Distance 
         {
@@ -75,10 +85,11 @@ namespace Models
         }
 
         //This can be empty
-        public int CheckListId { get; set; }
+        public int ChecklistId { get; set; }
+        //public int ChecklistId { get; set; }
 
-        public List<Participant> Participants { get; set; }
         public Checklist Checklist { get; set; }
         public List<Post> Posts { get; set; }
+        public List<Participant> Participants { get; set; }
     }
 }

@@ -18,18 +18,16 @@ userId = 32cbd3cd-5bdb-431e-bbf2-bc2608998817
 * GET route:
 /api/Checklist/1/item/1
 
-
 - Equipment 
 * GET route:
 /api/Equipments
 /api/Equipments/1
 
-
 - Activity
 * GET route:
 /api/Activity
 /api/Activity/1
-/api/Activity/User/5f6e429d-2a77-48b6-a1b7-67822955476a
+/api/Activity/Creator/5f6e429d-2a77-48b6-a1b7-67822955476a
 
 ``` json
   {
@@ -50,6 +48,9 @@ userId = 32cbd3cd-5bdb-431e-bbf2-bc2608998817
 /api/Trips
 /api/Trips/1
 /api/Trips/Activity/1
+/api/Trips/Creator/5f6e429d-2a77-48b6-a1b7-67822955476a
+​/api​/Trips​/Shared​/32cbd3cd-5bdb-431e-bbf2-bc2608998817
+
 ``` json
 {
     "id": 0,

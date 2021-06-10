@@ -24,11 +24,17 @@ namespace WebAPI.Controllers
         }
         
         //Get all activity by creator
-        [HttpGet("User/{userId}")]
+        [HttpGet("Creator/{userId}")]
         public async Task<IActionResult> GetAllActivitisByCreatorAsync(string userId)
         {
             return Ok(await _activityBL.GetAllActivitisByCreatorAsync(userId));
         }
+
+        // [HttpGet("Shared/{userId}")]
+        // public async Task<IActionResult> GetAllActivitisByParticipantAsync(string userId)
+        // {
+        //     return Ok(await _activityBL.GetAllActivitisByParticipantAsync(userId));
+        // }
        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActivityByIdAsync(int id)
