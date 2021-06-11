@@ -41,7 +41,7 @@ steps:
   inputs:
     command: 'test'
     projects: '$(solution)'
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true "/p:CoverletOutputFormat=\"opencover,Cobertura\"" /p:Exclude=\"[DL.Migrations.*]*\"'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true "/p:CoverletOutputFormat=\"opencover,Cobertura\"" /p:excludebyfile=\"**/DL/Migrations/*.cs\"'
     publishTestResults: true
 
 
