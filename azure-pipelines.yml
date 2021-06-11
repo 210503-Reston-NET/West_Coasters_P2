@@ -35,13 +35,15 @@ steps:
   inputs:
     command: 'build'
     projects: $(solution)
+
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:
     command: 'test'
     projects: '$(solution)'
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true "/p:CoverletOutputFormat=\"opencover,Cobertura\"" /p:Exclude=\"[Data.Migrations.*]*\"'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true "/p:CoverletOutputFormat=\"opencover,cobertura\"" '
     publishTestResults: true
+
 
 - task: PublishCodeCoverageResults@1
   displayName: Publish Code Coverage Report
