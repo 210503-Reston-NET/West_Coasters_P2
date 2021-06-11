@@ -8,9 +8,10 @@ namespace Models
     {
         private int _tripId;
         private string _userId;
+        private string _accept;
         public Participant()
-        { }
-
+        {}
+         
         public Participant(int tripId, string userId)
         {
             TripId = tripId;
@@ -23,6 +24,10 @@ namespace Models
         }
         
         public int Id { get; set; }
+        public Boolean Accept { 
+            get;
+            set;
+        }
 
         public int TripId 
         {

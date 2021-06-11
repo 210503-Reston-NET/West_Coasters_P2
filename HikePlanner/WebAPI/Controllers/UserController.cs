@@ -44,6 +44,17 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
+        /// Query user by email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        [HttpGet("email/{email}")]
+        public async Task<IActionResult> GetUserByEmailAsync(string email)
+        {
+            return Ok(await _usersBL.GetUserByEmailAsync(email));
+        }
+
+        /// <summary>
         /// Registering user
         /// </summary>
         /// <param name="newUser"></param>

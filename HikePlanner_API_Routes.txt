@@ -1,0 +1,45 @@
+- User
+/api/Users
+* map -> Address
+* GET route:
+/api/Users
+/api/Users/5f6e429d-2a77-48b6-a1b7-67822955476a
+
+- Checklist
+* GET route:
+/api/Checklist 
+/api/Checklist/1
+
+- ChecklistItem
+* GET route:
+/api/Checklist/1/item/1
+
+- Equipment 
+* GET route:
+/api/Equipments
+/api/Equipments/1
+
+- Activity
+* GET route:
+/api/Activity
+/api/Activity/1
+/api/Activity/Creator/5f6e429d-2a77-48b6-a1b7-67822955476a
+
+- Trip
+* map -> Checklist
+* GET route:
+/api/Trips
+/api/Trips/1
+/api/Trips/Activity/1
+/api/Trips/Creator/5f6e429d-2a77-48b6-a1b7-67822955476a
+​/api​/Trips​/Shared​/32cbd3cd-5bdb-431e-bbf2-bc2608998817
+
+- Participant
+* dependency : Trip
+* GET route:
+/api/Trips/1/Participants
+
+- Post
+* dependency : Trip
+* GET route:
+/api/Trips/6/Posts
