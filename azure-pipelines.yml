@@ -40,7 +40,7 @@ steps:
   displayName: Test
   inputs:
     command: 'test'
-    projects: '$(solution)'
+    projects: '$(solution)/Tests'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true "/p:CoverletOutputFormat=\"opencover,Cobertura\"" /p:Exclude=\"[Data.Migrations.*]*\"'
     publishTestResults: true
 
