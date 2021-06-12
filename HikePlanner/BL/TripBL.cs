@@ -67,8 +67,7 @@ namespace BL
 
         public async Task<List<Trip>> GetAllTripsByActivityIdAsync(int activityId)
         {
-            List<Trip> trips = await _tripRepo.GetAllTripsAsync();
-            return trips.Where(t => t.ActivityId == activityId).ToList();
+            return await _tripRepo.GetTripsByActivityIdAsync(activityId);
         }
 
         public async Task<List<Trip>> GetAllTripsByCreatorAsync(string Creator)

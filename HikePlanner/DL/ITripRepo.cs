@@ -12,6 +12,7 @@ namespace DL
     {
         Task<List<Trip>> GetAllTripsAsync();
         Task<Trip> GetTripByIdAsync(int id);
+        Task<List<Trip>> GetTripsByActivityIdAsync(int id);
         Task<Trip> AddNewTripAsync(Trip trip);
         Task<Trip> UpdateTripAsync(Trip trip);
         Task DeleteTripAsync(Trip trip);

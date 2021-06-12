@@ -23,10 +23,23 @@ namespace DL
         public async Task<List<Trip>> GetAllTripsAsync()
         {
             List<Trip> trips =  await _context.Trips
-                .AsNoTracking()                
+                .AsNoTracking()
                 .Include(t => t.Participants)
                 .Include(t => t.Posts)
                 .Include(t => t.Checklist)
+                .ToListAsync();
+            return trips;
+        }
+        /// <summary>
+        /// Get trips by activity id
+        /// </summary>
+        /// <param name="id">activity Id</param>
+        /// <returns></returns>
+        public async Task<List<Trip>> GetTripsByActivityIdAsync(int id)
+        {
+            List<Trip> trips = await _context.Trips
+                .AsNoTracking()
+                .Where(trip => trip.ActivityId == id)
                 .ToListAsync();
             return trips;
         }
