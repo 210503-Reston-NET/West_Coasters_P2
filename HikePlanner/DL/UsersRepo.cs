@@ -52,7 +52,10 @@ namespace DL
         public async Task<User> GetUserByEmailAsync(string email)
         {
             User UserFound = await _context.Users.FirstOrDefaultAsync(user=> user.Email == email);
-            UserFound.Address = (UserFound.AddressId != 0 ? _context.Address.Find(UserFound.AddressId) : null);
+            if(UserFound is not null)
+            {
+                UserFound.Address = (UserFound.AddressId != 0 ? _context.Address.Find(UserFound.AddressId) : null);
+            }
             return UserFound;
         }
 
