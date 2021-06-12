@@ -66,7 +66,13 @@ namespace WebAPI.Controllers
             Guid guid = Guid.NewGuid();
             //generating Guid unique id for user which is string
             newUser.UserId = guid.ToString();
-            return Created("api/User", await _usersBL.AddUserAsync(newUser));
+            try
+            {
+                return Created("api/Users", await _usersBL.AddUserAsync(newUser));
+            } catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         /// <summary>

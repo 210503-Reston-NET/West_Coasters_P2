@@ -26,10 +26,10 @@ namespace Models
                 {
                     throw new Exception("Name cannot be empty");
                 }
-                if (!Regex.IsMatch(value, @"^[0-9A-Za-z@ .-]+$"))
-                {
-                    throw new Exception("Name is not valid");
-                }
+                //if (!Regex.IsMatch(value, @"^[0-9A-Za-z@ .-]+$"))
+                //{
+                //    throw new Exception("Name is not valid");
+                //}
                 _name = value;
             } }
         public string Email { get; set; }

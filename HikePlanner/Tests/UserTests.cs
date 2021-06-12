@@ -22,17 +22,17 @@ namespace Tests
             //Assert
             Assert.Equal(input, test.Name);
         }
-        [Theory]
-        [InlineData("!!328ui")]
-        [InlineData("es%&%xcyuhbkj8")]
-        public void NameShouldNotSetInvalidData(string input)
-        {
-            //Arrange
-            User test = new User();
+        //[Theory]
+        //[InlineData("!!328ui")]
+        //[InlineData("es%&%xcyuhbkj8")]
+        //public void NameShouldNotSetInvalidData(string input)
+        //{
+        //    //Arrange
+        //    User test = new User();
 
-            //Act & Assert
-            Assert.Throws<Exception>(() => test.Name = input);
-        }
+        //    //Act & Assert
+        //    Assert.Throws<Exception>(() => test.Name = input);
+        //}
 
         [Fact]
         public void NameShouldNotSetNullData()
