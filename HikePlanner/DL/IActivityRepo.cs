@@ -15,5 +15,6 @@ namespace DL
         Task<Activity> AddNewActivityAsync(Activity activity);
         Task<Activity> UpdateActivityAsync(Activity activity);
         Task DeleteActivityAsync(Activity Activity);
+        Task<List<Activity>> GetAllActivitisByCreatorAsync(string creator);
     }
 }

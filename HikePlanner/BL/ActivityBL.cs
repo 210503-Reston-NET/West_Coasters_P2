@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using DL;
 using Models;
-using System.Linq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BL
 {
@@ -14,7 +13,7 @@ namespace BL
         {
             _activityRepo = activityRepo;
             _tripBL = tripBL;
-            
+
         }
         public async Task<Activity> AddNewActivityAsync(Activity activity)
         {
@@ -43,16 +42,8 @@ namespace BL
 
         public async Task<List<Activity>> GetAllActivitisByCreatorAsync(string creator)
         {
-            List<Activity> activities = await _activityRepo.GetAllActivitisAsync();
-            // List<Activity> result = new List<Activity>(); 
-            // foreach(Activity a in activities)
-            // {
-            //     if (a.Creator == creator)
-            //     {
-            //         result.Add(a);
-            //     }
-            // }
-            return activities.Where(a => a.Creator == creator).ToList();
+            return await _activityRepo.GetAllActivitisByCreatorAsync(creator);
+
         }
         // public async Task<List<Activity>> GetAllActivitisByParticipantAsync(string userId)
         // {
