@@ -26,7 +26,7 @@ namespace Models
                 {
                     throw new Exception("Name cannot be empty");
                 }
-                if (!Regex.IsMatch(value, @"^[A-Za-z .-]+$"))
+                if (!Regex.IsMatch(value, @"^[0-9A-Za-z@ .-]+$"))
                 {
                     throw new Exception("Name is not valid");
                 }

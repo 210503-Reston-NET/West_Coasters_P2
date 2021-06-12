@@ -23,8 +23,8 @@ namespace Tests
             Assert.Equal(input, test.Name);
         }
         [Theory]
-        [InlineData("328ui")]
-        [InlineData("esxcyuhbkj8")]
+        [InlineData("!!328ui")]
+        [InlineData("es%&%xcyuhbkj8")]
         public void NameShouldNotSetInvalidData(string input)
         {
             //Arrange
