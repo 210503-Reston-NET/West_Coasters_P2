@@ -14,6 +14,7 @@ namespace BL
         Task<User> GetUserByIdAsync(string id);
         Task<User> UpdateUserAsync(User userToUpdate);
         Task<User> DeleteUserAsync(User user);
+        Task<User> GetUserByEmailAsync(string email);
         
     }
 }

@@ -41,5 +41,10 @@ namespace BL
         {
             return await _userRepo.UpdateUserAsync(userToUpdate);
         }
+
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _userRepo.GetUserByEmailAsync(email);
+        }
     }
 }

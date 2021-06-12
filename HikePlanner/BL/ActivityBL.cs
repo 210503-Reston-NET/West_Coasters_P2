@@ -44,8 +44,15 @@ namespace BL
         public async Task<List<Activity>> GetAllActivitisByCreatorAsync(string creator)
         {
             List<Activity> activities = await _activityRepo.GetAllActivitisAsync();
-            activities.Where(a => a.Creator == creator);
-            return activities;
+            // List<Activity> result = new List<Activity>(); 
+            // foreach(Activity a in activities)
+            // {
+            //     if (a.Creator == creator)
+            //     {
+            //         result.Add(a);
+            //     }
+            // }
+            return activities.Where(a => a.Creator == creator).ToList();
         }
         // public async Task<List<Activity>> GetAllActivitisByParticipantAsync(string userId)
         // {

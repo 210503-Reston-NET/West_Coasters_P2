@@ -78,7 +78,7 @@ namespace Models
             {
                 if(value <= 0)
                 {
-                    throw new ValidationException("Checklist TripId cannot be less than or equal to 0");
+                    throw new ValidationException("ChecklistId cannot be less than or equal to 0");
                 }
                 _activityId = value;
             }

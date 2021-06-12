@@ -68,15 +68,13 @@ namespace BL
         public async Task<List<Trip>> GetAllTripsByActivityIdAsync(int activityId)
         {
             List<Trip> trips = await _tripRepo.GetAllTripsAsync();
-            trips.Where(t => t.ActivityId == activityId);
-            return trips;
+            return trips.Where(t => t.ActivityId == activityId).ToList();
         }
 
         public async Task<List<Trip>> GetAllTripsByCreatorAsync(string Creator)
         {
             List<Trip> trips = await _tripRepo.GetAllTripsAsync();
-            trips.Where(t => t.Creator == Creator);
-            return trips;
+            return trips.Where(t => t.Creator == Creator).ToList();
         }
 
         public async Task<List<Trip>> GetAllTripsByParticipantAsync(string userId)

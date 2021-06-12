@@ -47,9 +47,15 @@ namespace DL
         {
             User UserFound = await _context.Users.FirstOrDefaultAsync(user=> user.UserId == id);
             UserFound.Address = (UserFound.AddressId != 0 ? _context.Address.Find(UserFound.AddressId) : null);
-            if (UserFound == null) return null;
             return UserFound;
         }
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            User UserFound = await _context.Users.FirstOrDefaultAsync(user=> user.Email == email);
+            UserFound.Address = (UserFound.AddressId != 0 ? _context.Address.Find(UserFound.AddressId) : null);
+            return UserFound;
+        }
+
         public async Task<User> DeleteUserAsync(User user)
         {
             User userToBeDeleted = _context.Users.First(us=> us.UserId == user.UserId);
