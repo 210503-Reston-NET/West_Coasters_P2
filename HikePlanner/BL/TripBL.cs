@@ -72,8 +72,7 @@ namespace BL
 
         public async Task<List<Trip>> GetAllTripsByCreatorAsync(string Creator)
         {
-            List<Trip> trips = await _tripRepo.GetAllTripsAsync();
-            return trips.Where(t => t.Creator == Creator).ToList();
+            return await _tripRepo.GetTripsByCreatorAsync(Creator);
         }
 
         public async Task<List<Trip>> GetAllTripsByParticipantAsync(string userId)
