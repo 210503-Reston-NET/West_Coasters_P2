@@ -15,6 +15,11 @@ namespace BL
         {
             _repo = repo;
         }
+        public async Task<List<Checklist>> GetChecklistByUserIdAsync(string userId)
+        {
+            return await _repo.GetChecklistByUserIdAsync(userId);
+        }
+
         public async Task<Checklist> CreateNewChecklistAsync(Checklist checklist)
         {
             return await _repo.CreateNewChecklistAsync(checklist);

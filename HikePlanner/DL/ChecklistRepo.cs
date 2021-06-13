@@ -103,6 +103,16 @@ namespace DL
                 .ThenInclude(i => i.Equipment)
                 .FirstOrDefaultAsync(list => list.Id == id);
         }
+
+        public async Task<List<Checklist>> GetChecklistByUserIdAsync(string userId)
+        {
+            return await _context.Checklists
+                .AsNoTracking()
+                .Where(list => list.Creator == userId)
+                .Include(i => i.ChecklistItems)
+                .ThenInclude(i => i.Equipment)
+                .ToListAsync();
+        }
         /// <summary>
         /// Fetch the first checklistItem that matches the id param
         /// </summary>

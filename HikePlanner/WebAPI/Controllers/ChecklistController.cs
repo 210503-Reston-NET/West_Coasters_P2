@@ -46,6 +46,18 @@ namespace WebAPI.Controllers
             Log.Information("GET api/Checklist/{id}", id);
             return Ok(await _checklistBL.GetChecklistByIdAsync(id));
         }
+        
+        /// <summary>
+        /// Grabs all checklist by User Id
+        /// </summary>
+        /// <param name="userId">User id</param>
+        /// <returns>list of checklists</returns>
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetAsync(string userId)
+        {
+            Log.Information("Getting all checklists by userId, {userId}", userId);
+            return Ok(await _checklistBL.GetChecklistByUserIdAsync(userId));
+        }
 
         /// <summary>
         /// POST api/<ChecklistController>
@@ -101,7 +113,7 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// POST api/<ChecklistController>/item
+        /// POST api/<ChecklistController>/5/item
         /// Creates new checklist item
         /// </summary>
         /// <param name="listId">checklist item obj to be created</param>
