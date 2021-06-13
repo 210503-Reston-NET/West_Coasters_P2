@@ -146,7 +146,28 @@ namespace DL
                 .Where(obj => obj.TripId == tripId)
                 .Select(participant => participant)
                 .ToListAsync();
-        }   
+        }
+        /// <summary>
+        /// Get trips by creatorid
+        /// </summary>
+        /// <param name="id"></param> this is creator id
+        /// <returns></returns>
+        public async Task<List<Trip>> GetTripsByCreatorAsync(string creator)
+        {
+            return await _context.Trips
+                .AsNoTracking()
+                .Where(a => a.Creator == creator)
+                .Select(t => new Trip
+                {
+                    Id = t.Id,
+                    Activities = t.Activities,
+                    StartDate = t.StartDate,
+                    EndDate = t.EndDate,
+                    Distance = t.Distance,
+                    Creator = t.Creator
+                })
+                .ToListAsync();
+        }
 
         /// <summary>
         /// Get a parcipant by id

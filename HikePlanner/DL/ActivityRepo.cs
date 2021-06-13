@@ -38,7 +38,13 @@ namespace DL
             );
             return activities;
         }
-
+        public async Task<List<Activity>> GetAllActivitisByCreatorAsync(string creator)
+        {
+            return await _context.Activities
+                .AsNoTracking()
+                .Where(a => a.Creator == creator)
+                .ToListAsync();
+        }
         /// <summary>
         /// Get Activity object by id
         /// </summary>
