@@ -157,6 +157,15 @@ namespace DL
             return await _context.Trips
                 .AsNoTracking()
                 .Where(a => a.Creator == creator)
+                .Select(t => new Trip
+                {
+                    Id = t.Id,
+                    Activities = t.Activities,
+                    StartDate = t.StartDate,
+                    EndDate = t.EndDate,
+                    Distance = t.Distance,
+                    Creator = t.Creator
+                })
                 .ToListAsync();
         }
 
