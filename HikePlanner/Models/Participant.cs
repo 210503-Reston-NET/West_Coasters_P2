@@ -54,5 +54,7 @@ namespace Models
                 _userId = value;
             }
         }
+
+        public User User { get; set; }
     }
 }
