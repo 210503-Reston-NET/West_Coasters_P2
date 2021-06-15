@@ -119,9 +119,9 @@ namespace WebAPI.Controllers
         /// <param name="listId">checklist item obj to be created</param>
         /// <param name="checklistItem"/>checklist item to be created</param>
         [HttpPost("{listId}/item")]
-        public IActionResult Post(int listId, [FromBody] ChecklistItem checklistItem)
+        public async Task<IActionResult> PostAsync(int listId, [FromBody] ChecklistItem checklistItem)
         {
-            return Created("api/Checklist", _checklistBL.CreateNewChecklistItemAsync(checklistItem));
+            return Created("api/Checklist", await _checklistBL.CreateNewChecklistItemAsync(checklistItem));
         }
 
         /// <summary>
@@ -132,9 +132,9 @@ namespace WebAPI.Controllers
         /// <param name="itemId"/>checklist item id</param>
         /// <param name="checklistItem">checklist item to be updated</param>
         [HttpPut("{listId}/item/{itemId}")]
-        public IActionResult Put(int listId, int itemId, [FromBody] ChecklistItem checklistItem)
+        public async Task<IActionResult> PutAsync(int listId, int itemId, [FromBody] ChecklistItem checklistItem)
         {
-            return Ok(_checklistBL.UpdateChecklistItemAsync(checklistItem));
+            return Ok( await _checklistBL.UpdateChecklistItemAsync(checklistItem));
         }
 
         /// <summary>
