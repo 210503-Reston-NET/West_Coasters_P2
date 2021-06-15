@@ -24,9 +24,21 @@ namespace DL
         {
             List<Activity> activities = await _context.Activities
                 .AsNoTracking()
-                .Include(a => a.Trips)
+                //.Include(a => a.Trips)
                 .ToListAsync();
-            
+                activities.ForEach(
+                    a => 
+                    {
+                        a.Trips = _context.Trips.Where(t => t.ChecklistId == a.Id).Select(t => t).ToList();
+                        // a.Trips.ForEach(t => 
+                        // {
+                        //     t.Participants = _context.Participants.Where(p => p.TripId == t.Id).ToList();
+                        //     t.Posts = _context.Posts.Where(p => p.TripId == t.Id).ToList();
+                        //     t.Checklist = _context.Checklists.Find(t.ChecklistId);
+                        // } 
+                        // );
+                    }
+                );
             activities.ForEach(
                 a => a.Trips.ForEach(t => 
                     {
