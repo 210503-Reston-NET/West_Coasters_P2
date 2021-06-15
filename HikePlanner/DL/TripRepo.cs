@@ -22,12 +22,32 @@ namespace DL
         /// <returns></returns>
         public async Task<List<Trip>> GetAllTripsAsync()
         {
+
             List<Trip> trips =  await _context.Trips
-                .AsNoTracking()
-                .Include(t => t.Participants)
-                .Include(t => t.Posts)
-                .Include(t => t.Checklist)
-                .ToListAsync();
+            .AsNoTracking()                
+            // .Include(t => t.Participants)
+            // .Include(t => t.Posts)
+            // .Include(t => t.Checklist)
+            .ToListAsync();
+            trips.ForEach(t => 
+                {
+                    t.Participants = _context.Participants
+                        .Where(p => p.TripId == t.Id)
+                        .Include(p => p.User)
+                        .ToList();
+                    //t.Posts = _context.Posts.Where(p => p.TripId == t.Id).ToList();
+                    t.Checklist = _context.Checklists.Find(t.ChecklistId);
+                    t.Activity = _context.Activities.Select(a => new Activity
+                    {
+                        Id = a.Id,
+                        Name = a.Name,
+                        TrailHead = a.TrailHead,
+                        TrailId = a.TrailId,
+                        Creator = a.Creator
+                    }).FirstOrDefault();
+                } 
+            );
+            
             return trips;
         }
         /// <summary>
@@ -160,7 +180,7 @@ namespace DL
                 .Select(t => new Trip
                 {
                     Id = t.Id,
-                    Activities = t.Activities,
+                    Activity = t.Activity,
                     StartDate = t.StartDate,
                     EndDate = t.EndDate,
                     Distance = t.Distance,

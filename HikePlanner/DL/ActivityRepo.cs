@@ -26,7 +26,6 @@ namespace DL
                 .AsNoTracking()
                 .Include(a => a.Trips)
                 .ToListAsync();
-            
             activities.ForEach(
                 a => a.Trips.ForEach(t => 
                     {
