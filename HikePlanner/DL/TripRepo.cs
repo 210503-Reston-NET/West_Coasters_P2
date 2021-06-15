@@ -37,14 +37,14 @@ namespace DL
                         .ToList();
                     //t.Posts = _context.Posts.Where(p => p.TripId == t.Id).ToList();
                     t.Checklist = _context.Checklists.Find(t.ChecklistId);
-                    t.Activity = _context.Activities.Select(a => new Activity
+                    t.Activity = _context.Activities.Where(a => a.Id == t.ActivityId).Select(a => new Activity
                     {
                         Id = a.Id,
                         Name = a.Name,
                         TrailHead = a.TrailHead,
                         TrailId = a.TrailId,
                         Creator = a.Creator
-                    }).FirstOrDefault();
+                    }).First();
                 } 
             );
             
