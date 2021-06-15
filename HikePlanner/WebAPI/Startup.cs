@@ -46,6 +46,9 @@ namespace WebAPI
 
             services.AddScoped<IChecklistBL, ChecklistBL>();
             services.AddScoped<IChecklistRepo, ChecklistRepo>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
