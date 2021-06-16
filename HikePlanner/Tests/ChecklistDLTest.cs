@@ -200,7 +200,7 @@ namespace Tests
                         }
                     }
                 );
-                context.SaveChanges();
+                context.SaveChanges();context.SaveChanges();
             }
         }
 

@@ -58,7 +58,6 @@ namespace Tests
                     new Activity("Cool Trail Hike","We are gonna have fun", "7890", "Trail Hike", "9f0250da-ea47-4bcc-984e-a5c97b3a4872")
                 );
             }
-
         }
 
         private void seed()
