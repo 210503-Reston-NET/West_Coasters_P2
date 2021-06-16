@@ -35,6 +35,8 @@ namespace Tests
             Assert.NotNull(test);
             Assert.Equal(target, test.UserId);
         }
+
+        [Fact]
         public async Task UpdateUserAsync()
         {
             mockRepo.Setup(x => x.UpdateUserAsync(It.IsAny<User>())).Returns
@@ -47,7 +49,7 @@ namespace Tests
             );
             
             IUsersBL bl = new UsersBL(mockRepo.Object);
-            var test = await bl.AddUserAsync(new User());
+            var test = await bl.UpdateUserAsync(new User());
             string target = "abc";
             Assert.NotNull(test);
             Assert.Equal(target, test.UserId);

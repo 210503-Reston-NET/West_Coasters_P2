@@ -35,6 +35,8 @@ namespace Tests
             Assert.NotNull(test);
             Assert.Equal(target, test.Id);
         }
+        
+        [Fact]
         public async Task UpdateEquipmentAsync()
         {
             mockRepo.Setup(x => x.UpdateEquipmentAsync(It.IsAny<Equipment>())).Returns
@@ -87,6 +89,27 @@ namespace Tests
             IEquipmentBL bl = new EquipmentBL(mockRepo.Object);
             await bl.DeleteEquipmentAsync(new Equipment());
             Assert.NotNull(new Equipment());
+        }
+
+        [Fact]
+        public async Task GetAllEquipmentsAsync()
+        {
+            mockRepo.Setup(x => x.GetAllEquipmentsAsync()).Returns
+            (
+                Task.FromResult(
+                    new List<Equipment>() {
+                        new Equipment(){
+                            Id = 1
+                        }
+                    }
+                )
+            );
+            
+            IEquipmentBL bl = new EquipmentBL(mockRepo.Object);
+            var test = await bl.GetAllEquipmentsAsync();
+            int target = 1;
+            Assert.NotNull(test);
+            Assert.Equal(target, test.Count);
         }
     }
 }

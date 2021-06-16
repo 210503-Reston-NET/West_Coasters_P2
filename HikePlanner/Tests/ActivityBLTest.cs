@@ -13,8 +13,6 @@ namespace Tests
     public class ActivityBLTest
     {
         Mock<IActivityRepo> mockRepo;
-        Mock<ITripRepo> tripMockRepo;
-
         public ActivityBLTest()
         {
             mockRepo = new Mock<IActivityRepo>();
@@ -38,6 +36,8 @@ namespace Tests
             Assert.NotNull(test);
             Assert.Equal(target, test.Id);
         }
+        
+        [Fact]
         public async Task UpdateActivityAsync()
         {
             mockRepo.Setup(x => x.UpdateActivityAsync(It.IsAny<Activity>())).Returns

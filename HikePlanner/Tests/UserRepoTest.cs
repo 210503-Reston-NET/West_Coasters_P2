@@ -60,7 +60,6 @@ namespace Tests
                 List<User> result = await _repo.GetAllUsersAsync();
                 Assert.NotNull(result);
                 Assert.Equal("goodday@gmail.com", result[0].Email);
-                Assert.Equal(1, result.Count);
             }
         }
 
@@ -112,7 +111,8 @@ namespace Tests
                 Assert.Equal("goodday@outlook.com", result.Email);
             }
         }
-
+        
+        [Fact]
         public async Task SeedAsync()
         {
             using (var context = new AppDBContext(options))
