@@ -13,45 +13,125 @@ namespace Tests
     public class UserBLTest
     {
         Mock<IUsersRepo> mockRepo;
-        IUsersBL _bl;
         public UserBLTest()
         {
             mockRepo = new Mock<IUsersRepo>();
-            mockRepo.Setup(x => x.GetUserByIdAsync(It.IsAny<string>())).Returns
+        }
+        [Fact]
+        public async Task AddUserAsync()
+        {
+            mockRepo.Setup(x => x.AddUserAsync(It.IsAny<User>())).Returns
             (
                 Task.FromResult(
-                    new User() {
-                        UserId = "9f0250da-ea47-4bcc-984e-a5c97b3a4872",
-                        Email = "goodday@gmail.com",
-                        AddressId = 1,
-                        Address = new Address {
-                            Id = 1,
-                            City = "123"
-                        }
+                    new User(){
+                        UserId = "abc"
                     }
                 )
             );
-
-            _bl = new UsersBL(mockRepo.Object);
+            
+            IUsersBL bl = new UsersBL(mockRepo.Object);
+            var test = await bl.AddUserAsync(new User());
+            string target = "abc";
+            Assert.NotNull(test);
+            Assert.Equal(target, test.UserId);
         }
 
         [Fact]
-        public async Task GetUserByAsyncShouldReturnEmail()
+        public async Task UpdateUserAsync()
         {
-            var test = await _bl.GetUserByIdAsync("abc");
-            string target = "goodday@gmail.com";
+            mockRepo.Setup(x => x.UpdateUserAsync(It.IsAny<User>())).Returns
+            (
+                Task.FromResult(
+                    new User(){
+                        UserId = "abc"
+                    }
+                )
+            );
+            
+            IUsersBL bl = new UsersBL(mockRepo.Object);
+            var test = await bl.UpdateUserAsync(new User());
+            string target = "abc";
+            Assert.NotNull(test);
+            Assert.Equal(target, test.UserId);
+        }
+
+        [Fact]
+        public async Task GetUserByIdAsync()
+        {
+            mockRepo.Setup(x => x.GetUserByIdAsync(It.IsAny<string>())).Returns
+            (
+                Task.FromResult(
+                    new User(){
+                        UserId = "abc"
+                    }
+                )
+            );
+            
+            IUsersBL bl = new UsersBL(mockRepo.Object);
+            var test = await bl.GetUserByIdAsync("abc");
+            string target = "abc";
+            Assert.NotNull(test);
+            Assert.Equal(target, test.UserId);
+        }
+
+        [Fact]
+        public async Task GetUserByEmailAsync()
+        {
+            mockRepo.Setup(x => x.GetUserByEmailAsync(It.IsAny<string>())).Returns
+            (
+                Task.FromResult(
+                    new User(){
+                        UserId = "abc",
+                        Email = "abc"
+                    }
+                )
+            );
+            
+            IUsersBL bl = new UsersBL(mockRepo.Object);
+            var test = await bl.GetUserByEmailAsync("abc");
+            string target = "abc";
             Assert.NotNull(test);
             Assert.Equal(target, test.Email);
         }
 
         [Fact]
-        public async Task GetUserByAsyncShouldReturnId()
+        public async Task DeleteUserAsync()
         {
-            var test = await _bl.GetUserByIdAsync("abc");
-            string target = "9f0250da-ea47-4bcc-984e-a5c97b3a4872";
+            mockRepo.Setup(x => x.DeleteUserAsync(It.IsAny<User>())).Returns
+            (
+                Task.FromResult(
+                    new User(){
+                        UserId = "abc"
+                    }
+                )
+            );
+            
+            IUsersBL bl = new UsersBL(mockRepo.Object);
+            var test = await bl.DeleteUserAsync(new User());
+            string target = "abc";
             Assert.NotNull(test);
             Assert.Equal(target, test.UserId);
         }
 
+        [Fact]
+        public async Task GetAllUsersAsync()
+        {
+            mockRepo.Setup(x => x.GetAllUsersAsync()).Returns
+            (
+                Task.FromResult(
+                    new List<User>() {
+                        new User(){
+                            UserId = "abc"
+                        }
+                    }
+                )
+            );
+            
+            IUsersBL bl = new UsersBL(mockRepo.Object);
+            var test = await bl.GetAllUsersAsync();
+            string target = "abc";
+            Assert.NotNull(test);
+            Assert.Equal(target, test[0].UserId);
+        }
     }
 }

@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Tests
 {
-    public class UsersRepoTest
+    public class UsersDLTest
     {
         private readonly DbContextOptions<AppDBContext> options;
-        public UsersRepoTest() {
+        public UsersDLTest() {
             options = new DbContextOptionsBuilder<AppDBContext>().UseSqlite("Filename=TestUser.db").Options;
             Seed();
         }
@@ -120,5 +120,6 @@ namespace Tests
                 context.SaveChanges();
             }
         }
+
     }
 }
