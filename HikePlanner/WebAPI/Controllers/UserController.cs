@@ -71,6 +71,7 @@ namespace WebAPI.Controllers
                 return Created("api/Users", await _usersBL.AddUserAsync(newUser));
             } catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }

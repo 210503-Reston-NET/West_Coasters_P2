@@ -12,15 +12,16 @@ namespace Models
         {
         }
 
-        public Activity(string name, string traidId, string trailhead, string creator)
+        public Activity(string name, string notes, string traidId, string trailhead, string creator)
         {
             Name = name;
+            Notes = notes;
             TrailId = traidId;
             TrailHead = trailhead;
             Creator = creator;
         }
 
-        public Activity(int id, string name, string traidId, string trailhead, string creator) : this (name, traidId, trailhead, creator)
+        public Activity(int id, string name, string notes, string traidId, string trailhead, string creator) : this (name,notes, traidId, trailhead, creator)
         {
             Id = id;
         }
