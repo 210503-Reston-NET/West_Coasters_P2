@@ -15,12 +15,13 @@ namespace Tests
         private readonly DbContextOptions<AppDBContext> options;
         public EquipmentTestDL()
         {
-            options = new DbContextOptionsBuilder<AppDBContext>().UseSqlite("Filename=Test.db").Options;
+            options = new DbContextOptionsBuilder<AppDBContext>().UseSqlite("Filename=TestEquipment.db").Options;
+            seed();
         }
         [Fact]
         public async Task GeTAllEquipmentsShouldGetAllEquipments()
         {
-            await seed();
+            //await seed();
             using (var context = new AppDBContext(options))
             {
                 //Arrange
@@ -28,7 +29,7 @@ namespace Tests
                 //Act
                 var AllEquipements = await _repo.GetAllEquipmentsAsync();
                 //Assert
-                Assert.Equal(1, AllEquipements.Count);
+                Assert.Equal(1, AllEquipements[0].Id);
 
             }
         }
@@ -48,14 +49,14 @@ namespace Tests
 
         }
 
-        private async Task seed()
+        private void seed()
         {
             //this is an example of a using block
             using (var context = new AppDBContext(options))
             {
-                await context.Database.EnsureDeletedAsync();
-                await context.Database.EnsureCreatedAsync();
-                await context.Equipments.AddRangeAsync(
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                context.Equipments.AddRange(
                     new Equipment
                     {
                         Id = 1,
@@ -63,7 +64,7 @@ namespace Tests
                         Description= "65L pack- good for an overnighter to 2-3day trips",
                     }
                 );
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
     }

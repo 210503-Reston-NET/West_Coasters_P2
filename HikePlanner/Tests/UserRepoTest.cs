@@ -14,7 +14,8 @@ namespace Tests
     {
         private readonly DbContextOptions<AppDBContext> options;
         public UsersRepoTest() {
-            options = new DbContextOptionsBuilder<AppDBContext>().UseSqlite("Filename=Test.db").Options;
+            options = new DbContextOptionsBuilder<AppDBContext>().UseSqlite("Filename=TestUser.db").Options;
+            Seed();
         }
         
         [Fact]
@@ -22,9 +23,6 @@ namespace Tests
         {
             using (var context = new AppDBContext(options))
             {
-                
-                await SeedAsync();
-
                 IUsersRepo _repo = new UsersRepo(context, new AddressRepo(context));
 
                 User result = await _repo.GetUserByIdAsync("9f0250da-ea47-4bcc-984e-a5c97b3a4872");
@@ -37,9 +35,6 @@ namespace Tests
         {
             using (var context = new AppDBContext(options))
             {
-                
-                await SeedAsync();
-
                 IUsersRepo _repo = new UsersRepo(context, new AddressRepo(context));
 
                 User result = await _repo.GetUserByEmailAsync("goodday@gmail.com");
@@ -52,9 +47,6 @@ namespace Tests
         {
             using (var context = new AppDBContext(options))
             {
-                
-                await SeedAsync();
-
                 IUsersRepo _repo = new UsersRepo(context, new AddressRepo(context));
 
                 List<User> result = await _repo.GetAllUsersAsync();
@@ -68,9 +60,6 @@ namespace Tests
         {
             using (var context = new AppDBContext(options))
             {
-                
-                await SeedAsync();
-
                 IUsersRepo _repo = new UsersRepo(context, new AddressRepo(context));
                 var toUpdate =  new User {
                         UserId = "9f0250da-ea47-4bcc-984e-a5c97b3a4872",
@@ -92,7 +81,6 @@ namespace Tests
         [Fact]
         public async Task AddNew()
         {
-            await SeedAsync();
             using (var context = new AppDBContext(options))
             {
                 IUsersRepo _repo = new UsersRepo(context, new AddressRepo(context));
@@ -111,15 +99,14 @@ namespace Tests
                 Assert.Equal("goodday@outlook.com", result.Email);
             }
         }
-        
-        [Fact]
-        public async Task SeedAsync()
+        [Fact]        
+        public void Seed()
         {
             using (var context = new AppDBContext(options))
             {
-                await context.Database.EnsureDeletedAsync();
-                await context.Database.EnsureCreatedAsync();
-                await context.Users.AddRangeAsync(
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                context.Users.AddRange(
                     new User {
                         UserId = "9f0250da-ea47-4bcc-984e-a5c97b3a4872",
                         Email = "goodday@gmail.com",
@@ -130,7 +117,7 @@ namespace Tests
                         }
                     }
                 );
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
     }

@@ -14,13 +14,14 @@ namespace Tests
     {
         private readonly DbContextOptions<AppDBContext> options;
         public ActivityTestsDL(){
-            options = new DbContextOptionsBuilder<AppDBContext>().UseSqlite("Filename=Test.db").Options;
+            options = new DbContextOptionsBuilder<AppDBContext>().UseSqlite("Filename=TestActivity.db").Options;
+            seed();
         }
 
         [Fact]
         public async Task GetActivityByIdShouldReturnActivity(){
             using(var context = new AppDBContext(options)){
-            await seed();
+            ///await seed();
                   //Arrange
                     IActivityRepo _repo = new ActivityRepo(context);
                   //Act
@@ -35,19 +36,20 @@ namespace Tests
         {
             using (var context = new AppDBContext(options))
             {
-                await seed();
+                //await seed();
                 //Arrange
                 IActivityRepo _repo = new ActivityRepo(context);
                 //Act
                 List<Activity> activity =
                 await _repo.GetAllActivitisByCreatorAsync("9f0250da-ea47-4bcc-984e-a5c97b3a4872");
                 //Assert
-                Assert.Equal(1, activity.Count);
+                Assert.Equal(1, activity[0].Id);
             }
         }
         [Fact]
         public async Task AddActivityShouldAddActivityAsync(){
             using(var context = new AppDBContext(options)){
+
                 //Arrange
                 IActivityRepo _repo = new ActivityRepo(context);
                 //Act
@@ -59,14 +61,14 @@ namespace Tests
 
         }
 
-        private async Task seed()
+        private void seed()
         {
             //this is an example of a using block
             using (var context = new AppDBContext(options))
             {
-                await context.Database.EnsureDeletedAsync();
-                await context.Database.EnsureCreatedAsync();
-                await context.Activities.AddRangeAsync(
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                context.Activities.AddRange(
                     new Activity
                     {
                         Id = 1,
@@ -77,7 +79,7 @@ namespace Tests
                         Creator = "9f0250da-ea47-4bcc-984e-a5c97b3a4872"
                     }
                 );
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
     }
