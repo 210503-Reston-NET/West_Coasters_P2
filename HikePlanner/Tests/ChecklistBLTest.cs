@@ -81,6 +81,27 @@ namespace Tests
         }
 
         [Fact]
+        public async Task GetAllChecklistsAsync()
+        {
+            mockRepo.Setup(x => x.GetAllChecklistsAsync()).Returns
+            (
+                Task.FromResult(
+                    new List<Checklist>(){
+                        new Checklist(){
+                            Id = 1,
+                            Name = "abc"
+                        }
+                    }
+                )
+            );
+            
+            IChecklistBL bl = new ChecklistBL(mockRepo.Object);
+            var test = await bl.GetAllChecklistsAsync();
+            string target = "abc";
+            Assert.NotNull(test);
+            Assert.Equal(target, test[0].Name);
+        }
+        [Fact]
         public async Task CreateNewChecklistItemAsync()
         {
             mockRepo.Setup(x => x.CreateNewChecklistItemAsync(It.IsAny<ChecklistItem>())).Returns

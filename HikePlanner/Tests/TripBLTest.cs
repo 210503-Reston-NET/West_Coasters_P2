@@ -112,6 +112,7 @@ namespace Tests
             Assert.NotNull(test);
             Assert.Equal(target, test[0].Id);
         }
+
         [Fact]
         public async Task GetTripsByCreatorAsync()
         {
@@ -128,6 +129,27 @@ namespace Tests
             
             ITripBL bl = new TripBL(mockRepo.Object);
             var test = await bl.GetAllTripsByCreatorAsync("abc");
+            int target = 1;
+            Assert.NotNull(test);
+            Assert.Equal(target, test[0].Id);
+        }
+
+        [Fact]
+        public async Task GetAllTripsAsync()
+        {
+            mockRepo.Setup(x => x.GetAllTripsAsync()).Returns
+            (
+                Task.FromResult(
+                    new List<Trip>() {
+                        new Trip(){
+                            Id = 1
+                        }
+                    }
+                )
+            );
+            
+            ITripBL bl = new TripBL(mockRepo.Object);
+            var test = await bl.GetAllTripsAsync();
             int target = 1;
             Assert.NotNull(test);
             Assert.Equal(target, test[0].Id);

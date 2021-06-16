@@ -112,5 +112,26 @@ namespace Tests
             Assert.NotNull(test);
             Assert.Equal(target, test.UserId);
         }
+
+        [Fact]
+        public async Task GetAllUsersAsync()
+        {
+            mockRepo.Setup(x => x.GetAllUsersAsync()).Returns
+            (
+                Task.FromResult(
+                    new List<User>() {
+                        new User(){
+                            UserId = "abc"
+                        }
+                    }
+                )
+            );
+            
+            IUsersBL bl = new UsersBL(mockRepo.Object);
+            var test = await bl.GetAllUsersAsync();
+            string target = "abc";
+            Assert.NotNull(test);
+            Assert.Equal(target, test[0].UserId);
+        }
     }
 }

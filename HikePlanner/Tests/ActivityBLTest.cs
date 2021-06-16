@@ -112,5 +112,25 @@ namespace Tests
             Assert.NotNull(test);
             Assert.Equal(target, test[0].Id);
         }
+        [Fact]
+        public async Task GetAllActivitiessAsync()
+        {
+            mockRepo.Setup(x => x.GetAllActivitisAsync()).Returns
+            (
+                Task.FromResult(
+                    new List<Activity>() {
+                        new Activity(){
+                            Id = 1
+                        }
+                    }
+                )
+            );
+            
+            IActivityBL bl = new ActivityBL(mockRepo.Object);
+            var test = await bl.GetAllActivitiessAsync();
+            int target = 1;
+            Assert.NotNull(test);
+            Assert.Equal(target, test[0].Id);
+        }
     }
 }
