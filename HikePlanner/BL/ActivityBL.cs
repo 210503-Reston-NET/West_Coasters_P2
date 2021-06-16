@@ -9,10 +9,10 @@ namespace BL
     {
         private readonly IActivityRepo _activityRepo;
         private readonly ITripBL _tripBL;
-        public ActivityBL(IActivityRepo activityRepo, ITripBL tripBL)
+        public ActivityBL(IActivityRepo activityRepo)
         {
             _activityRepo = activityRepo;
-            _tripBL = tripBL;
+            //_tripBL = tripBL;
 
         }
         public async Task<Activity> AddNewActivityAsync(Activity activity)
