@@ -19,7 +19,7 @@ namespace Tests
         }
 
         [Fact]
-        public async Task GetAddressByIdShouldReturnAddress()
+        public async Task GetAddressByIdAsync()
         {
             using(var context = new AppDBContext(options)){
                 IAddressRepo _repo = new AddressRepo(context);
