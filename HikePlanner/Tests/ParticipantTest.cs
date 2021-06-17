@@ -7,6 +7,21 @@ namespace Tests
 {
     public class ParticipantTest
     {
+        [Fact]
+        public void AcceptShouldReturnRightTrue()
+        {
+            Participant test = new Participant();
+            test.Accept = true;
+            Assert.True(test.Accept);
+        }
+        [Fact]
+        public void AcceptShouldReturnRightFalse()
+        {
+            Participant test = new Participant();
+            test.Accept = false;
+            Assert.False(test.Accept);
+        }
+
         //Test valid foreign keys
         [Fact]
         public void ForeignKeyCreatorShouldNotBeEmpty()
@@ -31,5 +46,7 @@ namespace Tests
             test.TripId = 123;
             Assert.Equal(123, test.TripId);
         }   
+
+        
     }
 }

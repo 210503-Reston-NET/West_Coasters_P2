@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Tests
 {
-    public class UsersRepoTest
+    public class UsersDLTest
     {
         private readonly DbContextOptions<AppDBContext> options;
-        public UsersRepoTest() {
+        public UsersDLTest() {
             options = new DbContextOptionsBuilder<AppDBContext>().UseSqlite("Filename=TestUser.db").Options;
             Seed();
         }
         
         [Fact]
-        public async Task GetById()
+        public async Task GetUserByIdAsync()
         {
             using (var context = new AppDBContext(options))
             {
@@ -31,7 +31,7 @@ namespace Tests
             }
         }
         [Fact]
-        public async Task GetUserByEmail()
+        public async Task GetUserByEmailAsync()
         {
             using (var context = new AppDBContext(options))
             {
@@ -43,7 +43,7 @@ namespace Tests
             }
         }
         [Fact]
-        public async Task GetAll()
+        public async Task GetAllUsersAsync()
         {
             using (var context = new AppDBContext(options))
             {
@@ -56,7 +56,7 @@ namespace Tests
         }
 
         [Fact]
-        public async Task Update()
+        public async Task UpdateUserAsync()
         {
             using (var context = new AppDBContext(options))
             {
@@ -79,7 +79,7 @@ namespace Tests
         }
 
         [Fact]
-        public async Task AddNew()
+        public async Task AddUserAsync()
         {
             using (var context = new AppDBContext(options))
             {
@@ -118,6 +118,22 @@ namespace Tests
                     }
                 );
                 context.SaveChanges();
+            }
+        }
+
+        [Fact]
+        public async Task DeleteUserAsync()
+        {
+            using (var context = new AppDBContext(options))
+            {
+
+                IUsersRepo _repo = new UsersRepo(context, new AddressRepo(context));
+                string target = "9f0250da-ea47-4bcc-984e-a5c97b3a4872";
+                User toDelete = await _repo.GetUserByIdAsync(target);
+                await _repo.DeleteUserAsync(toDelete);
+                List<User> test = await _repo.GetAllUsersAsync();
+                Assert.True(test.Count == 0);
+                Assert.Empty(test);
             }
         }
     }
