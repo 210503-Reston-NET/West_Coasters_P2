@@ -14,6 +14,15 @@ namespace Tests
             Activity test = new Activity();
             Assert.Throws<ValidationException>(() => test.Creator = "");
         }
+        
+        [Fact]
+        public void UserIdShouldSetString()
+        {
+            Activity test = new Activity();
+            test.Creator = "abc";
+            Type target = typeof(string);
+            Assert.Equal(test.Creator.GetType(), target);
+        }
 
         //Test valid name for activity
         [Fact]

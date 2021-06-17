@@ -22,17 +22,6 @@ namespace Tests
             //Assert
             Assert.Equal(input, test.Name);
         }
-        //[Theory]
-        //[InlineData("!!328ui")]
-        //[InlineData("es%&%xcyuhbkj8")]
-        //public void NameShouldNotSetInvalidData(string input)
-        //{
-        //    //Arrange
-        //    User test = new User();
-
-        //    //Act & Assert
-        //    Assert.Throws<Exception>(() => test.Name = input);
-        //}
 
         [Fact]
         public void NameShouldNotSetNullData()
@@ -55,6 +44,24 @@ namespace Tests
 
             //Assert
             Assert.Equal(email, test.Email);
+        }
+
+        [Fact]
+        public void UserIdShouldSetString()
+        {
+            User test = new User();
+            test.UserId = "abc";
+            Type target = typeof(string);
+            Assert.Equal(test.UserId.GetType(), target);
+        }
+
+        [Fact]
+        public void EmailShouldSetString()
+        {
+            User test = new User();
+            test.Email = "abc";
+            Type target = typeof(string);
+            Assert.Equal(test.Email.GetType(), target);
         }
     }
 }

@@ -59,5 +59,14 @@ namespace Tests
             Trip test = new Trip();
             Assert.Throws<ValidationException>(() => test.ActivityId = input);
         }
+
+        [Fact]
+        public void UserIdShouldSetString()
+        {
+            Trip test = new Trip();
+            test.Creator = "abc";
+            Type target = typeof(string);
+            Assert.Equal(test.Creator.GetType(), target);
+        }
     }
 }

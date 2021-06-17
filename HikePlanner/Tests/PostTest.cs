@@ -31,6 +31,15 @@ namespace Tests
             Assert.Equal(123, test.TripId);
         }
 
+        [Fact]
+        public void UserIdShouldSetString()
+        {
+            Post test = new Post();
+            test.UserId = "abc";
+            Type target = typeof(string);
+            Assert.Equal(test.UserId.GetType(), target);
+        }
+
         //Test note contents
         [Fact]
         public void NoteContentShouldNotBeEmpty()

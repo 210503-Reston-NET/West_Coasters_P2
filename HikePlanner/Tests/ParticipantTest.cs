@@ -30,6 +30,15 @@ namespace Tests
             Assert.Throws<ValidationException>(() => test.UserId = "");
         }
 
+        [Fact]
+        public void UserIdShouldSetString()
+        {
+            Participant test = new Participant();
+            test.UserId = "abc";
+            Type target = typeof(string);
+            Assert.Equal(test.UserId.GetType(), target);
+        }
+
         [Theory]
         [InlineData(0)]
         [InlineData(-2)]

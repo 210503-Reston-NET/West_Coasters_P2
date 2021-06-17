@@ -108,5 +108,13 @@ namespace Tests
             test.Id = 123;
             Assert.Equal(123, test.Id);
         }
+        [Fact]
+        public void UserIdShouldSetString()
+        {
+            Checklist test = new Checklist();
+            test.Creator = "abc";
+            Type target = typeof(string);
+            Assert.Equal(test.Creator.GetType(), target);
+        }
     }
 }
