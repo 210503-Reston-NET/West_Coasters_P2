@@ -33,6 +33,24 @@ namespace Tests
 
             }
         }
+
+        [Fact]
+        public async Task GetEquipmentByIdShouldReturnEquipment()
+        {
+            using (var context = new AppDBContext(options))
+            {
+                //Arrange
+                IEquipmentRepo _repo = new EquipmentRepo(context);
+                int target = 1;
+
+                //Act
+                Equipment test = await _repo.GetEquipmentByIdAsync(target);
+
+                //Assert
+                Assert.Equal(target, test.Id);
+            }
+        }
+
         [Fact]
         public async Task AddNewEquipmentAsync(){
             using(var context = new AppDBContext(options))
