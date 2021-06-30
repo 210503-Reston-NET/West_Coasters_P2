@@ -8,9 +8,9 @@ By the West Coasters
 
 The *Hike Planner App* is a web application that helps hikers and outdoor enthusiasts plan their next adventure. Discover and plan your next outdoor adventure all in one place with our application! You can also store your equipment and checklist for easy planning and view your trips afterwards. As the trip owner, you can invite other users to your adventure and create a memorable hiking experience with them! 
 
-our app is on Azure -> http://hikeplanner.azurewebsites.net
-
-See frontend Github Repo -> https://github.com/210503-Reston-NET/West_Coasters_P2_FE
+* -> our app is on Azure: http://hikeplanner.azurewebsites.net
+* -> [app overview](https://docs.google.com/presentation/d/1qzG1asN5NaIM531R9MRzllNBuaVCv0BronBiJCgGinY/edit#slide=id.ge0e369f099_0_490) 
+* -> github frontend Repo: https://github.com/210503-Reston-NET/West_Coasters_P2_FE
 
 ## Tables
 - User
